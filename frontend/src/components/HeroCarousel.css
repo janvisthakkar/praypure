@@ -1,0 +1,224 @@
+/* HeroCarousel.css */
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    /* Desktop Height */
+    overflow: hidden;
+    background-color: #000;
+}
+
+.heroSwiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Full Width Image */
+.banner-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Overlay for readability */
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Stronger gradient overlay for better text visibility */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
+    /* Darker at bottom where text/buttons are */
+    z-index: 2;
+}
+
+/* Content Container */
+/* Content Container */
+.hero-banner .container {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center horizontally */
+    justify-content: center;
+    /* Center vertically */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+    /* Ensure text is centered */
+}
+
+.banner-content {
+    max-width: 800px;
+    color: var(--color-white, #fff);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.banner-title {
+    display: block;
+    /* Ensure it's on its own line */
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.2;
+    color: var(--color-white, #fff);
+}
+
+.banner-subtitle {
+    display: block;
+    /* Ensure it's on its own line */
+    font-family: var(--font-sans, 'Inter', sans-serif);
+    font-size: 1.5rem;
+    margin: 0 0 2rem 0;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    color: var(--color-soft-white, #eee);
+}
+
+/* NOTE: Removing references to .banner-tagline as it is deleted */
+
+/* Button Group */
+.banner-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.btn {
+    padding: 12px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    /* Pill shape */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+/* Amazon Button - Golden Solid (Primary) */
+.btn-amazon {
+    background-color: var(--color-golden, #D4AF37);
+    color: var(--color-dark-brown, #3E2723);
+    border: 2px solid var(--color-golden, #D4AF37);
+}
+
+.btn-amazon:hover {
+    background-color: var(--color-golden-hover, #B8941F);
+    border-color: var(--color-golden-hover, #B8941F);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Flipkart Button - Transparent with Golden Border (Secondary) */
+.btn-flipkart {
+    background-color: transparent;
+    color: var(--color-golden, #D4AF37);
+    border: 2px solid var(--color-golden, #D4AF37);
+}
+
+.btn-flipkart:hover {
+    background-color: var(--color-golden, #D4AF37);
+    color: var(--color-dark-brown, #3E2723);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-banner {
+        height: 500px;
+    }
+
+    .banner-title {
+        font-size: 2.5rem;
+    }
+
+    .banner-subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-banner {
+        height: 100vh;
+        /* Full viewport height on mobile */
+        max-height: 700px;
+    }
+
+    .banner-title {
+        font-size: 2rem;
+    }
+
+    .banner-actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        gap: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+/* Enforce Circular Navigation Arrows for Hero Carousel */
+.hero-banner .swiper-button-next,
+.hero-banner .swiper-button-prev {
+    color: var(--color-golden, #D4AF37) !important;
+    background: rgba(255, 255, 255, 0.1);
+    width: 50px;
+    height: 50px;
+    border-radius: 50% !important;
+    /* Explicitly Round */
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.hero-banner .swiper-button-next:after,
+.hero-banner .swiper-button-prev:after {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+.hero-banner .swiper-button-next:hover,
+.hero-banner .swiper-button-prev:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    border-color: var(--color-golden, #D4AF37);
+}

@@ -1,0 +1,306 @@
+/* Collection Section */
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--spacing-lg);
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.collection-card {
+    background: var(--color-white);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(62, 39, 35, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.collection-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(62, 39, 35, 0.2);
+}
+
+.card-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    object-fit: cover;
+    display: block;
+}
+
+.collection-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.collection-card:hover .collection-img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: var(--spacing-lg);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.collection-card h3 {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    color: var(--color-dark-brown);
+    margin-bottom: var(--spacing-sm);
+}
+
+.collection-card p {
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    font-size: 14px;
+}
+
+.collection-card .btn {
+    align-self: center;
+}
+
+/* Why Choose Us Section */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.feature-card {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(62, 39, 35, 0.1);
+}
+
+.feature-icon {
+    font-size: 48px;
+    margin-bottom: var(--spacing-md);
+}
+
+.feature-card h3 {
+    font-family: var(--font-serif);
+    color: var(--color-dark-brown);
+    margin-bottom: var(--spacing-sm);
+}
+
+.feature-card p {
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-light-brown) 100%);
+}
+
+/* Instagram Gallery Section */
+.glimpses-section {
+    background: var(--color-white);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+}
+
+.gallery-item {
+    height: 250px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(62, 39, 35, 0.15);
+    position: relative;
+    display: block;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+}
+
+.gallery-item.large {
+    grid-column: span 2;
+    height: 350px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.instagram-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(62, 39, 35, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.gallery-item:hover .instagram-overlay {
+    opacity: 1;
+}
+
+.instagram-icon {
+    font-size: 48px;
+    color: var(--color-white);
+}
+
+/* Subscribe Section */
+.subscribe {
+    background: linear-gradient(135deg, var(--color-dark-brown) 0%, #2d1b18 100%);
+    color: var(--color-white);
+    text-align: center;
+    padding: var(--spacing-xxl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative background element */
+.subscribe::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.subscribe h2 {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+}
+
+.subscribe p {
+    max-width: 600px;
+    margin: 0 auto var(--spacing-lg);
+    opacity: 0.9;
+    font-size: 18px;
+    position: relative;
+}
+
+.subscribe-form {
+    display: flex;
+    max-width: 600px;
+    margin: 0 auto;
+    gap: var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    position: relative;
+}
+
+.subscribe-form input {
+    flex: 1;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    background: var(--color-white);
+    color: var(--color-dark-brown);
+    outline: none;
+    transition: box-shadow 0.3s;
+}
+
+.subscribe-form input:focus {
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.5);
+}
+
+.subscribe-form button {
+    border-radius: 30px;
+    padding: 15px 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    width: auto;
+    transition: all 0.3s ease;
+}
+
+.subscribe-form button:disabled {
+    background: #7d7d7d;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.subscribe-note {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+    .subscribe-form {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
+        gap: var(--spacing-sm);
+    }
+
+    .subscribe-form input,
+    .subscribe-form button {
+        width: 100%;
+        border-radius: var(--border-radius);
+    }
+}
+
+@media (max-width: 768px) {
+    .collection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .subscribe-form {
+        flex-direction: column;
+    }
+
+    .subscribe-form button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .collection-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}

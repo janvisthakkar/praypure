@@ -1,0 +1,160 @@
+/* Page Layout */
+.product-category-page {
+    min-height: 100vh;
+    background-color: var(--color-soft-white);
+    /* Use soft white/cream branding */
+}
+
+/* Header */
+.category-header-section {
+    background: linear-gradient(135deg, var(--color-dark-brown) 0%, var(--color-light-brown) 100%);
+    color: var(--color-white);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.category-header-section .page-title {
+    font-family: var(--font-serif);
+    font-size: 42px;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-golden);
+}
+
+.category-header-section .page-subtitle {
+    font-size: 18px;
+    opacity: 0.9;
+    color: var(--color-cream);
+}
+
+/* Layout Container */
+.product-layout {
+    display: flex;
+    gap: var(--spacing-xl);
+    padding-bottom: var(--spacing-xxl);
+    align-items: flex-start;
+}
+
+/* Sidebar Styling (Desktop) */
+.filters-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 90px;
+    /* Below navbar */
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(62, 39, 35, 0.05);
+    /* Brown shadow hint */
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    /* Subtle Golden border */
+}
+
+.filter-title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    color: var(--color-dark-brown);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-golden);
+}
+
+.filter-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.filter-btn {
+    text-align: left;
+    padding: 12px 16px;
+    background: transparent;
+    color: var(--color-light-brown);
+    border: 1px solid transparent;
+    /* No visible border properly */
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 15px;
+    width: 100%;
+}
+
+.filter-btn:hover {
+    background: var(--color-cream);
+    color: var(--color-dark-brown);
+    padding-left: 20px;
+    /* Interaction effect */
+}
+
+.filter-btn.active {
+    background: var(--color-golden);
+    color: var(--color-dark-brown);
+    font-weight: 600;
+    border-color: var(--color-golden);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Mobile Dropdown Styling */
+.mobile-filter-select {
+    display: none;
+    /* Hidden on Desktop */
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--color-golden);
+    border-radius: var(--border-radius);
+    background: var(--color-white);
+    color: var(--color-dark-brown);
+    font-size: 16px;
+    font-family: var(--font-sans);
+    margin-bottom: var(--spacing-lg);
+    appearance: none;
+    /* Custom arrow handling */
+    cursor: pointer;
+
+    /* Custom Arrow SVG (Brown color matching brand) */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233E2723' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.mobile-filter-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.4);
+}
+
+/* Products Grid Area */
+.products-grid-container {
+    flex-grow: 1;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Responsive - Mobile/Tablet */
+@media (max-width: 900px) {
+    .product-layout {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .filters-sidebar {
+        display: none;
+        /* Hide Sidebar */
+    }
+
+    .mobile-filter-select {
+        display: block;
+        /* Show Dropdown */
+    }
+
+    .category-header-section .page-title {
+        font-size: 32px;
+    }
+}
