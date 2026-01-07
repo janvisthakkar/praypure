@@ -114,7 +114,7 @@ const ProductManager = () => {
     const addMarketplace = () => {
         setFormData({
             ...formData,
-            marketplaces: [...formData.marketplaces, { platform: '', url: '', isActive: true, showButton: false }]
+            marketplaces: [...formData.marketplaces, { platform: 'Amazon', url: '', isActive: true, showButton: true }]
         });
     };
 
@@ -338,7 +338,17 @@ const ProductManager = () => {
                                     <div className="dynamic-list">
                                         {formData.marketplaces.map((mp, idx) => (
                                             <div key={idx} className="list-item marketplace-row">
-                                                <input type="text" placeholder="Platform (e.g. Zepto)" value={mp.platform} onChange={e => updateMarketplace(idx, 'platform', e.target.value)} style={{ maxWidth: '150px' }} />
+                                                <select
+                                                    value={mp.platform}
+                                                    onChange={e => updateMarketplace(idx, 'platform', e.target.value)}
+                                                    style={{ maxWidth: '150px', padding: '0.6rem', background: 'var(--card-bg)', color: 'white', border: '1px solid var(--border)', borderRadius: '0.5rem' }}
+                                                >
+                                                    <option value="Amazon">Amazon</option>
+                                                    <option value="Flipkart">Flipkart</option>
+                                                    <option value="Zepto">Zepto</option>
+                                                    <option value="Blinkit">Blinkit</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
                                                 <input type="text" placeholder="Product URL" value={mp.url} onChange={e => updateMarketplace(idx, 'url', e.target.value)} />
                                                 <div className="checkbox-mini">
                                                     <input type="checkbox" checked={mp.showButton} onChange={e => updateMarketplace(idx, 'showButton', e.target.checked)} id={`show-btn-${idx}`} />

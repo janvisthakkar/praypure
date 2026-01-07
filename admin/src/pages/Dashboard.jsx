@@ -60,6 +60,42 @@ const Dashboard = () => {
                 ))}
             </div>
 
+            <div className="card store-settings" style={{ marginBottom: '2rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--text-primary)' }}>Store Visibility Settings</h3>
+                        <p style={{ margin: '5px 0 0', color: 'var(--text-secondary)' }}>Manage global visibility of prices and buttons.</p>
+                    </div>
+                    <div>
+                        <label className="switch" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
+                            <span style={{ fontWeight: 500 }}>Hide Prices & Buy Options</span>
+                            <div
+                                style={{
+                                    width: '50px',
+                                    height: '26px',
+                                    background: settings.hidePrices ? '#d4af37' : '#333',
+                                    borderRadius: '13px',
+                                    position: 'relative',
+                                    transition: '0.3s'
+                                }}
+                                onClick={togglePriceVisibility}
+                            >
+                                <div style={{
+                                    width: '20px',
+                                    height: '20px',
+                                    background: '#fff',
+                                    borderRadius: '50%',
+                                    position: 'absolute',
+                                    top: '3px',
+                                    left: settings.hidePrices ? '27px' : '3px',
+                                    transition: '0.3s'
+                                }} />
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div className="dashboard-welcome card">
                 <h2>Welcome back to Praypure Admin</h2>
                 <p>From here, you can manage all aspects of your digital store. Select a module from the sidebar to get started.</p>

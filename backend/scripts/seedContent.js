@@ -24,8 +24,8 @@ const seedContent = async () => {
         // 2. Seed Hero Slides
         const heroSlides = [
             {
-                title: "Pure Essence, Divine Fragrance",
-                subtitle: "Experience the authentic aroma of traditional Indian incense",
+                title: "Authentic Cow Dung Incense",
+                subtitle: "Handcrafted using pure indigenous Cow Dung for spiritual purification",
                 image: "/assets/images/hero_incense_burning_1764862235560.png",
                 amazonLink: "https://www.amazon.in/s?k=praypure",
                 flipkartLink: "https://www.flipkart.com/search?q=praypure",
@@ -40,8 +40,8 @@ const seedContent = async () => {
                 order: 2
             },
             {
-                title: "100% Natural Ingredients",
-                subtitle: "Pure, organic fragrances for your spiritual journey",
+                title: "Pure Essence, Divine Fragrance",
+                subtitle: "Experience the authentic aroma of traditional Indian incense",
                 image: "/assets/images/hero_natural_ingredients_1764862303355.png",
                 amazonLink: "https://www.amazon.in/s?k=praypure",
                 flipkartLink: "https://www.flipkart.com/search?q=praypure",
@@ -93,9 +93,9 @@ const seedContent = async () => {
         const featureSections = [
             {
                 sectionType: 'feature',
-                title: "100% Natural",
-                description: "Pure, organic ingredients sourced from trusted suppliers across India",
-                icon: "🌿",
+                title: "Cow Dung Based",
+                description: "Scientifically crafted formulas using pure Desi Cow Dung for spiritual purification",
+                icon: "🐄",
                 order: 1
             },
             {
@@ -138,39 +138,39 @@ const seedContent = async () => {
         // 6. Seed Testimonials
         const testimonials = [
             {
-                name: "Priya Sharma",
-                location: "Mumbai, Maharashtra",
-                text: "The fragrance is absolutely divine! Best incense sticks I've ever used. The quality is exceptional and the aroma lasts for hours.",
+                name: "Rajeshwari Devi",
+                location: "Varanasi, UP",
+                text: "I really liked the concept of using Cow Dung. It feels like a genuine Vedic ritual every time I light one.",
                 rating: 5
             },
             {
-                name: "Rajesh Kumar",
-                location: "Delhi, NCR",
-                text: "Authentic quality and fast delivery. Highly recommended! Praypure has become my go-to brand for all spiritual needs.",
+                name: "Priya Sharma",
+                location: "Mumbai, Maharashtra",
+                text: "The fragrance is absolutely divine! Best incense sticks I've ever used. The aroma is pure, natural, and lasts for hours without being overpowering.",
                 rating: 5
             },
             {
                 name: "Anjali Patel",
                 location: "Ahmedabad, Gujarat",
-                text: "The dhoop cones are perfect for my daily prayers. The fragrance is pure and the packaging is beautiful. Love it!",
+                text: "The dhoop cones are perfect for my morning meditation. You can smell the purity of the ingredients. No artificial chemical smell at all.",
                 rating: 5
             },
             {
                 name: "Vikram Singh",
                 location: "Jaipur, Rajasthan",
-                text: "I love the Havan cups. They are so easy to use and smell exactly like a traditional havan. Very spiritual experience.",
+                text: "I love the Havan cups. They burn evenly and create a perfect spiritual atmosphere. It brings deep peace to the entire house.",
                 rating: 5
             },
             {
                 name: "Meera Reddy",
                 location: "Hyderabad, Telangana",
-                text: "The packaging is premium and the products are natural. I can feel the difference from other brands. Will buy again.",
+                text: "The packaging is premium and keeps the sticks fresh. These are the most authentic traditional fragrances I have found. The quality is superior.",
                 rating: 4
             },
             {
                 name: "Suresh Menon",
                 location: "Kochi, Kerala",
-                text: "Excellent service and genuine products. The sandalwood incense is my favorite. It brings peace to my home.",
+                text: "The Sandalwood scent is incredible. It lingers in the room for a long time, creating a calm and holy vibe. Highly recommended for daily puja.",
                 rating: 5
             }
         ];
@@ -317,6 +317,16 @@ const seedContent = async () => {
         };
         await Admin.create(adminData);
         console.log('Seeded Admin User: admin@praypure.com / adminpassword123');
+
+        // 10. Seed Store Settings
+        const StoreSetting = require('../models/StoreSetting');
+        await StoreSetting.deleteMany({});
+        await StoreSetting.create({
+            key: 'hidePrices',
+            value: true, // Default as per user request
+            description: 'Global toggle to hide prices on store'
+        });
+        console.log('Seeded Store Settings (Hide Prices: ON)');
 
         console.log('Database Seeding Completed Successfully');
         process.exit();

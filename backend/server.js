@@ -24,6 +24,7 @@ app.use('/api/categories', require('./routes/categories'));
 app.use('/api/subscribers', require('./routes/subscribers'));
 app.use('/api/testimonials', require('./routes/testimonials'));
 app.use('/api/content', require('./routes/content'));
+app.use('/api/settings', require('./routes/settings'));
 app.use('/api/auth', require('./routes/auth'));
 app.get('/api/test', (req, res) => res.send('Test route works'));
 

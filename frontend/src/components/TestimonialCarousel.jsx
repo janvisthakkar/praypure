@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import axios from 'axios';
 import './TestimonialCarousel.css';
 
@@ -27,7 +28,7 @@ const TestimonialCarousel = () => {
                         name: "Rajesh Kumar",
                         location: "Delhi, NCR",
                         text: "Authentic quality and fast delivery. Highly recommended! Praypure has become my go-to brand for all spiritual needs.",
-                        rating: 5
+                        rating: 4.5
                     },
                     {
                         name: "Anjali Patel",
@@ -60,7 +61,24 @@ const TestimonialCarousel = () => {
     }, []);
 
     const renderStars = (rating) => {
-        return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        const stars = [];
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+
+        for (let i = 0; i < fullStars; i++) {
+            stars.push(<FaStar key={`full-${i}`} />);
+        }
+
+        if (hasHalfStar) {
+            stars.push(<FaStarHalfAlt key="half" />);
+        }
+
+        const emptyStars = 5 - Math.ceil(rating);
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<FaRegStar key={`empty-${i}`} />);
+        }
+
+        return stars;
     };
 
     return (

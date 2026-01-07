@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
                     <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
 
                     <h3 style={{ marginTop: '24px', marginBottom: '16px' }}>Contact Us</h3>
-                    <p>If you have any questions about our Privacy Policy, please contact us at info@praypure.com.</p>
+                    <p>If you have any questions about our Privacy Policy, please contact us at support@praypure.com.</p>
                 </div>
             </div>
         </section>

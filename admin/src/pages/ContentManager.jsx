@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Edit2, Trash2, Plus, MoveUp, MoveDown, X } from 'lucide-react';
+import { Edit2, Trash2, Plus, MoveUp, MoveDown, X, Star, StarHalf } from 'lucide-react';
 
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -111,6 +111,24 @@ const ContentManager = () => {
         }
     };
 
+    const renderStars = (rating) => {
+        const stars = [];
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+
+        for (let i = 0; i < fullStars; i++) {
+            stars.push(<Star key={`full-${i}`} size={16} fill="var(--accent)" color="var(--accent)" />);
+        }
+        if (hasHalfStar) {
+            stars.push(<StarHalf key="half" size={16} fill="var(--accent)" color="var(--accent)" />);
+        }
+        const emptyStars = 5 - Math.ceil(rating);
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<Star key={`empty-${i}`} size={16} color="var(--accent)" />);
+        }
+        return <div style={{ display: 'flex', gap: '2px' }}>{stars}</div>;
+    };
+
     return (
         <div className="content-manager">
             <div className="tabs">
@@ -183,7 +201,7 @@ const ContentManager = () => {
                                     </div>
                                     <p style={{ height: 'auto', WebkitLineClamp: 3 }}>"{t.text}"</p>
                                     <div className="rating" style={{ color: 'var(--accent)', margin: '1rem 0' }}>
-                                        {'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}
+                                        {renderStars(t.rating)}
                                     </div>
                                     <div className="update-info" style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
                                         Updated: {formatDate(t.updatedAt)}
@@ -292,7 +310,7 @@ const ContentManager = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>Rating (1-5)</label>
-                                            <input type="number" min="1" max="5" value={formData.rating} onChange={e => setFormData({ ...formData, rating: parseInt(e.target.value) })} />
+                                            <input type="number" min="1" max="5" step="0.1" value={formData.rating} onChange={e => setFormData({ ...formData, rating: parseFloat(e.target.value) })} />
                                         </div>
                                         <div className="form-group">
                                             <label>Avatar URL (Optional)</label>

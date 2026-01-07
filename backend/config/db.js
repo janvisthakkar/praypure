@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/praypure', {
+        // Force IPv4 loopback to avoid Node 17+ IPv6 issues
+        // Replace localhost with 127.0.0.1 in the connection string
+        const connStr = (process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/praypure').replace('localhost', '127.0.0.1');
+
+        const conn = await mongoose.connect(connStr, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
