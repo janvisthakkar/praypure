@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Package, Users, Image, Star, LogOut } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
@@ -12,16 +13,19 @@ const Dashboard = () => {
         testimonials: 0,
         slides: 0
     });
+    const [settings, setSettings] = useState({
+        hidePrices: false
+    });
 
     useEffect(() => {
-        const fetchStats = async () => {
+        const fetchDashboardData = async () => {
             try {
-                const [prodRes, subRes, testRes, heroRes] = await Promise.all([
+                const [prodRes, subRes, testRes, heroRes, settingsRes] = await Promise.all([
                     axios.get(`${API_BASE}/api/products`),
                     axios.get(`${API_BASE}/api/subscribers`),
                     axios.get(`${API_BASE}/api/testimonials`),
-                    axios.get(`${API_BASE}/api/content/hero`)
-
+                    axios.get(`${API_BASE}/api/content/hero`),
+                    axios.get(`${API_BASE}/api/settings`)
                 ]);
 
                 setStats({
@@ -30,12 +34,30 @@ const Dashboard = () => {
                     testimonials: testRes.data.count || 0,
                     slides: heroRes.data.count || 0
                 });
+
+                if (settingsRes.data.success) {
+                    setSettings(settingsRes.data.data);
+                }
             } catch (error) {
-                console.error('Error fetching dashboard stats:', error);
+                console.error('Error fetching dashboard data:', error);
             }
         };
-        fetchStats();
+        fetchDashboardData();
     }, []);
+
+    const togglePriceVisibility = async () => {
+        try {
+            const newValue = !settings.hidePrices;
+            const res = await axios.put(`${API_BASE}/api/settings/hidePrices`, { value: newValue });
+            if (res.data.success) {
+                setSettings(prev => ({ ...prev, hidePrices: newValue }));
+                toast.success('Store visibility updated');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Failed to update settings');
+        }
+    };
 
     const statCards = [
         { label: 'Total Products', value: stats.products, icon: Package, color: '#4cc9f0' },

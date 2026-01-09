@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Edit2, Trash2, Plus, Search, Filter, X } from 'lucide-react';
+import { Edit2, Trash2, Plus, Search, Filter, X, Upload } from 'lucide-react';
 
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -147,6 +147,36 @@ const ProductManager = () => {
         const updated = [...formData.images];
         updated[index] = { ...updated[index], [field]: value };
         setFormData({ ...formData, images: updated });
+    };
+
+    const handleFileUpload = async (e, field, index = null) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const uploadData = new FormData();
+        uploadData.append('image', file);
+
+        try {
+            setLoading(true); // diligent loading state
+            const res = await axios.post(`${API_BASE}/api/upload`, uploadData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            const url = res.data.data.url;
+
+            if (index !== null && field === 'images') {
+                // Updating gallery image
+                updateGalleryImage(index, 'url', url);
+            } else {
+                // Updating main image
+                setFormData(prev => ({ ...prev, [field]: url }));
+            }
+            toast.success('Image uploaded successfully');
+        } catch (error) {
+            console.error(error);
+            toast.error('Upload failed');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleDelete = async (id) => {
@@ -307,7 +337,13 @@ const ProductManager = () => {
                                 </div>
                                 <div className="form-group">
                                     <label>Main Image URL</label>
-                                    <input type="text" placeholder="https://..." value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} required />
+                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                        <input type="text" placeholder="https://..." value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} required />
+                                        <label className="btn-inline" style={{ cursor: 'pointer', margin: 0, height: 'auto' }}>
+                                            <input type="file" hidden accept="image/*" onChange={(e) => handleFileUpload(e, 'image')} />
+                                            <Upload size={16} /> Upload
+                                        </label>
+                                    </div>
                                 </div>
                                 <div className="form-group">
                                     <label>Slug (URL handle)</label>
@@ -321,10 +357,18 @@ const ProductManager = () => {
                                     </div>
                                     <div className="dynamic-list">
                                         {formData.images.map((img, idx) => (
-                                            <div key={idx} className="list-item">
-                                                <input type="text" placeholder="Image URL" value={img.url} onChange={e => updateGalleryImage(idx, 'url', e.target.value)} />
-                                                <input type="text" placeholder="Alt Text" value={img.altText} onChange={e => updateGalleryImage(idx, 'altText', e.target.value)} style={{ maxWidth: '150px' }} />
-                                                <button type="button" className="btn-remove" onClick={() => removeGalleryImage(idx)}><Trash2 size={14} /></button>
+                                            <div key={idx} className="list-item" style={{ alignItems: 'flex-start' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
+                                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                        <input type="text" placeholder="Image URL" value={img.url} onChange={e => updateGalleryImage(idx, 'url', e.target.value)} style={{ flex: 1 }} />
+                                                        <label className="btn-inline" style={{ cursor: 'pointer', margin: 0, padding: '0 8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                            <input type="file" hidden accept="image/*" onChange={(e) => handleFileUpload(e, 'images', idx)} />
+                                                            <Upload size={14} />
+                                                        </label>
+                                                    </div>
+                                                    <input type="text" placeholder="Alt Text" value={img.altText} onChange={e => updateGalleryImage(idx, 'altText', e.target.value)} />
+                                                </div>
+                                                <button type="button" className="btn-remove" onClick={() => removeGalleryImage(idx)} style={{ marginTop: '5px' }}><Trash2 size={14} /></button>
                                             </div>
                                         ))}
                                     </div>

@@ -27,6 +27,7 @@ app.use('/api/content', require('./routes/content'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api/auth', require('./routes/auth'));
 app.get('/api/test', (req, res) => res.send('Test route works'));
+app.post('/api/upload', require('./controllers/uploadController').uploadMiddleware, require('./controllers/uploadController').uploadImage);
 
 // Health Check
 app.get('/api/health', (req, res) => {
