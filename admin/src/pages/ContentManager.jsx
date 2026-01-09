@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Edit2, Trash2, Plus, MoveUp, MoveDown, X, Star, StarHalf } from 'lucide-react';
+import { Edit2, Trash2, Plus, MoveUp, MoveDown, X, Star, StarHalf, Upload } from 'lucide-react';
 
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -34,6 +34,7 @@ const ContentManager = () => {
     const [testimonials, setTestimonials] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({});
 
@@ -108,6 +109,36 @@ const ContentManager = () => {
             fetchData();
         } catch (error) {
             toast.error('Operation failed');
+        }
+    };
+
+    const handleFileUpload = async (e, field = 'image') => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const uploadData = new FormData();
+        uploadData.append('image', file);
+
+        // Determine folder based on active tab
+        const folder = activeTab === 'hero' ? 'hero'
+            : activeTab === 'testimonials' ? 'testimonials'
+                : 'content';
+
+        uploadData.append('folder', folder);
+
+        try {
+            setLoading(true);
+            const res = await axios.post(`${API_BASE}/api/upload`, uploadData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            const url = res.data.data.url;
+            setFormData(prev => ({ ...prev, [field]: url }));
+            toast.success('Image uploaded successfully');
+        } catch (error) {
+            console.error(error);
+            toast.error('Upload failed');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -240,7 +271,13 @@ const ContentManager = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>Image URL</label>
-                                            <input type="text" placeholder="Image URL" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} required />
+                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                <input type="text" placeholder="Image URL" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} required style={{ flex: 1 }} />
+                                                <label className="btn-inline" style={{ background: 'rgba(212, 175, 55, 0.1)', color: 'var(--accent)', border: '1px solid var(--accent)', padding: '0 12px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                                    <input type="file" hidden accept="image/*" onChange={(e) => handleFileUpload(e)} />
+                                                    <Upload size={16} /> Upload
+                                                </label>
+                                            </div>
                                         </div>
                                         <div className="form-group">
                                             <label>Amazon Link</label>
@@ -274,7 +311,13 @@ const ContentManager = () => {
                                             <>
                                                 <div className="form-group">
                                                     <label>Image URL</label>
-                                                    <input type="text" placeholder="Image URL" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} />
+                                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                        <input type="text" placeholder="Image URL" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} style={{ flex: 1 }} />
+                                                        <label className="btn-inline" style={{ background: 'rgba(212, 175, 55, 0.1)', color: 'var(--accent)', border: '1px solid var(--accent)', padding: '0 12px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                                            <input type="file" hidden accept="image/*" onChange={(e) => handleFileUpload(e)} />
+                                                            <Upload size={16} /> Upload
+                                                        </label>
+                                                    </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Section Link</label>
@@ -314,7 +357,13 @@ const ContentManager = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>Avatar URL (Optional)</label>
-                                            <input type="text" placeholder="Image URL" value={formData.avatar} onChange={e => setFormData({ ...formData, avatar: e.target.value })} />
+                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                <input type="text" placeholder="Image URL" value={formData.avatar} onChange={e => setFormData({ ...formData, avatar: e.target.value })} style={{ flex: 1 }} />
+                                                <label className="btn-inline" style={{ background: 'rgba(212, 175, 55, 0.1)', color: 'var(--accent)', border: '1px solid var(--accent)', padding: '0 12px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                                    <input type="file" hidden accept="image/*" onChange={(e) => handleFileUpload(e, 'avatar')} />
+                                                    <Upload size={16} /> Upload
+                                                </label>
+                                            </div>
                                         </div>
                                         <div className="form-group full-width checkbox-wrapper">
                                             <label className="checkbox-label">

@@ -51,8 +51,10 @@ exports.uploadImage = async (req, res) => {
 
         const file = req.file;
         const fileExtension = path.extname(file.originalname);
-        // Create unique key: timestamp-random-filename
-        const key = `products/${Date.now()}-${Math.round(Math.random() * 1E9)}${fileExtension}`;
+        const folder = req.body.folder || 'products'; // Default to 'products' if no folder specified
+
+        // Create unique key: folder/timestamp-random-filename
+        const key = `${folder}/${Date.now()}-${Math.round(Math.random() * 1E9)}${fileExtension}`;
 
         const params = {
             Bucket: process.env.AWS_BUCKET_NAME || 'praypure-images',

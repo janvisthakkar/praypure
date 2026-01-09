@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { Edit2, Trash2, Plus, X } from 'lucide-react';
+import { Edit2, Trash2, Plus, X, Upload } from 'lucide-react';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 
 const CategoryManager = () => {
     const [categories, setCategories] = useState([]);
@@ -86,6 +87,30 @@ const CategoryManager = () => {
         }
     };
 
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const uploadData = new FormData();
+        uploadData.append('image', file);
+        uploadData.append('folder', 'categories'); // Specify folder
+
+        try {
+            setLoading(true);
+            const res = await axios.post(`${API_BASE}/api/upload`, uploadData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            const url = res.data.data.url;
+            setFormData(prev => ({ ...prev, image: url }));
+            toast.success('Image uploaded successfully');
+        } catch (error) {
+            console.error(error);
+            toast.error('Upload failed');
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="manager-container">
             <div className="manager-header">
@@ -158,7 +183,24 @@ const CategoryManager = () => {
                                 </div>
                                 <div className="form-group">
                                     <label>Banner Image URL</label>
-                                    <input type="text" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} placeholder="https://..." />
+                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                        <input type="text" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} placeholder="https://..." style={{ flex: 1 }} />
+                                        <label className="btn-inline" style={{
+                                            background: 'rgba(212, 175, 55, 0.1)',
+                                            color: 'var(--accent)',
+                                            border: '1px solid var(--accent)',
+                                            padding: '0 12px',
+                                            borderRadius: '8px',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '6px',
+                                            whiteSpace: 'nowrap'
+                                        }}>
+                                            <input type="file" hidden accept="image/*" onChange={handleFileUpload} />
+                                            <Upload size={16} /> Upload
+                                        </label>
+                                    </div>
                                 </div>
                                 <div className="form-group full-width">
                                     <label>Page Subtitle</label>
