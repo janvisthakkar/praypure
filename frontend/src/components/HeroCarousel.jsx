@@ -31,7 +31,7 @@ const HeroCarousel = () => {
   }, []);
 
   if (slides.length === 0) {
-    return null;
+    return <div className="hero-skeleton skeleton" />;
   }
 
   return (
@@ -58,7 +58,12 @@ const HeroCarousel = () => {
           <SwiperSlide key={index}>
             <div className="banner-image">
               {/* Use standard img tag, managed by CSS for object-fit */}
-              <img src={slide.image} alt={slide.title} className="slide-image" />
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="slide-image"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
             </div>
 
             <div className="banner-overlay" />

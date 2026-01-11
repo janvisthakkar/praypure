@@ -13,3 +13,9 @@ root.render(
     </SettingsProvider>
   </React.StrictMode>
 );
+// Unregister any existing service workers
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.ready.then(registration => {
+    registration.unregister();
+  });
+}

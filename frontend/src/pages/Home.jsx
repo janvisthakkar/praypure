@@ -43,56 +43,48 @@ const Home = () => {
     const [email, setEmail] = useState('');
     const [subscribing, setSubscribing] = useState(false);
     const [instagramImages, setInstagramImages] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [collectionSections, setCollectionSections] = useState([]);
+    const [featureSections, setFeatureSections] = useState([]);
 
     const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
     useEffect(() => {
-        const fetchInstagramImages = async () => {
+        const fetchData = async () => {
+            setLoading(true);
             try {
-                const response = await axios.get(`${API_BASE}/api/content/instagram`);
-                if (response.data.success && response.data.data.length > 0) {
-                    setInstagramImages(response.data.data);
+                // Fetch all data in parallel
+                const [instaRes, prodRes, sectRes] = await Promise.all([
+                    axios.get(`${API_BASE}/api/content/instagram`).catch(() => ({ data: { success: false } })),
+                    axios.get(`${API_BASE}/api/products`).catch(() => ({ data: { success: false } })),
+                    axios.get(`${API_BASE}/api/content/sections`).catch(() => ({ data: { success: false } }))
+                ]);
+
+                // Handle Instagram
+                if (instaRes.data.success && instaRes.data.data.length > 0) {
+                    setInstagramImages(instaRes.data.data);
                 } else {
                     setInstagramImages(FALLBACK_IMAGES);
                 }
-            } catch (error) {
-                console.error('Error fetching Instagram feed:', error);
-                setInstagramImages(FALLBACK_IMAGES);
-            }
-        };
-        fetchInstagramImages();
-    }, []);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await axios.get(`${API_BASE}/api/products`);
-                setProducts(response.data.data || []);
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        };
-        fetchProducts();
-    }, []);
+                // Handle Products
+                setProducts(prodRes.data.data || []);
 
-    const [collectionSections, setCollectionSections] = useState([]);
-    const [featureSections, setFeatureSections] = useState([]);
-
-    useEffect(() => {
-        const fetchSections = async () => {
-            try {
-                const response = await axios.get(`${API_BASE}/api/content/sections`);
-                if (response.data.success) {
-                    const sections = response.data.data;
+                // Handle Sections
+                if (sectRes.data.success) {
+                    const sections = sectRes.data.data;
                     setCollectionSections(sections.filter(s => s.sectionType === 'collection'));
                     setFeatureSections(sections.filter(s => s.sectionType === 'feature'));
                 }
             } catch (error) {
-                console.error('Error fetching home sections:', error);
+                console.error('Error fetching home data:', error);
+            } finally {
+                setLoading(false);
             }
         };
-        fetchSections();
+        fetchData();
     }, []);
+
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
@@ -123,19 +115,26 @@ const Home = () => {
                             <p className="section-subtitle">Discover our range of premium spiritual products</p>
                         </div>
                         <div className="collection-grid">
-                            {collectionSections.map((section) => (
-                                <div className="collection-card" key={section._id}>
-                                    <div className="card-image">
-                                        <img src={section.image} alt={section.title} className="collection-img" />
+                            {loading ? (
+                                [...Array(4)].map((_, i) => (
+                                    <div className="collection-card skeleton" key={i} style={{ height: '400px', borderRadius: '12px' }}></div>
+                                ))
+                            ) : (
+                                collectionSections.map((section) => (
+                                    <div className="collection-card" key={section._id}>
+                                        <div className="card-image">
+                                            <img src={section.image} alt={section.title} className="collection-img" loading="lazy" />
+                                        </div>
+                                        <div className="card-content">
+                                            <h3>{section.title}</h3>
+                                            <p>{section.description}</p>
+                                            <Link to={section.link} className="btn btn-secondary">Explore</Link>
+                                        </div>
                                     </div>
-                                    <div className="card-content">
-                                        <h3>{section.title}</h3>
-                                        <p>{section.description}</p>
-                                        <Link to={section.link} className="btn btn-secondary">Explore</Link>
-                                    </div>
-                                </div>
-                            ))}
+                                ))
+                            )}
                         </div>
+
                     </div>
                 </section>
             )}
@@ -170,10 +169,17 @@ const Home = () => {
                             <p className="section-subtitle">New additions to our collection</p>
                         </div>
                         <div className="products-grid">
-                            {latestProducts.map((product) => (
-                                <ProductCard key={product._id} product={product} />
-                            ))}
+                            {loading ? (
+                                [...Array(4)].map((_, i) => (
+                                    <div className="product-card skeleton" key={i} style={{ height: '450px', borderRadius: '12px' }}></div>
+                                ))
+                            ) : (
+                                latestProducts.map((product) => (
+                                    <ProductCard key={product._id} product={product} />
+                                ))
+                            )}
                         </div>
+
                     </div>
                 </section>
             )}
@@ -202,6 +208,7 @@ const Home = () => {
                                     alt={img.caption || 'Praypure Instagram'}
                                     className="gallery-img"
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    loading="lazy"
                                 />
                                 <div className="gallery-overlay">
                                     <span className="instagram-icon">📷</span>

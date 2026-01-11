@@ -39,6 +39,7 @@ const ProductCard = ({ product }) => {
                     <img
                         src={product.images?.length > 0 ? product.images[0].url : product.image}
                         alt={product.images?.length > 0 ? product.images[0].altText || product.name : product.name}
+                        loading="lazy"
                     />
                 ) : (
                     <div className="placeholder-image">Product Image</div>
