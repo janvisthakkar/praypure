@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { toast } from 'react-toastify';
 import { Edit2, Trash2, Plus, X, Upload } from 'lucide-react';
 
@@ -31,7 +31,7 @@ const CategoryManager = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get(`${API_BASE}/api/categories?includeInactive=true`);
+            const response = await api.get(`/api/categories?includeInactive=true`);
             setCategories(response.data.data);
             setLoading(false);
         } catch (error) {
@@ -60,7 +60,7 @@ const CategoryManager = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure? This won't delete products, but might break landing pages.")) {
             try {
-                await axios.delete(`${API_BASE}/api/categories/${id}`);
+                await api.delete(`/api/categories/${id}`);
                 toast.success('Category deleted');
                 fetchCategories();
             } catch (error) {
@@ -73,10 +73,10 @@ const CategoryManager = () => {
         e.preventDefault();
         try {
             if (editingCategory) {
-                await axios.put(`${API_BASE}/api/categories/${editingCategory._id}`, formData);
+                await api.put(`/api/categories/${editingCategory._id}`, formData);
                 toast.success('Category updated');
             } else {
-                await axios.post(`${API_BASE}/api/categories`, formData);
+                await api.post(`/api/categories`, formData);
                 toast.success('Category added');
             }
             setShowModal(false);
@@ -97,7 +97,7 @@ const CategoryManager = () => {
 
         try {
             setLoading(true);
-            const res = await axios.post(`${API_BASE}/api/upload`, uploadData, {
+            const res = await api.post(`/api/upload`, uploadData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             const url = res.data.data.url;

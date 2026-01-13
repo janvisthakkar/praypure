@@ -7,7 +7,8 @@ import {
     Users,
     LogOut,
     ChevronRight,
-    Grid
+    Grid,
+    QrCode
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -21,6 +22,7 @@ const Sidebar = () => {
         { name: 'Products', icon: Package, path: '/products' },
         { name: 'Home Content', icon: Image, path: '/content' },
         { name: 'Subscribers', icon: Users, path: '/subscribers' },
+        { name: 'QR Codes', icon: QrCode, path: '/qrcodes' },
     ];
 
     const handleLogout = () => {

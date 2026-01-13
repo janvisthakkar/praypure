@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { toast } from 'react-toastify';
 import { Edit2, Trash2, Plus, MoveUp, MoveDown, X, Star, StarHalf, Upload } from 'lucide-react';
 
@@ -41,9 +41,9 @@ const ContentManager = () => {
     const fetchData = async () => {
         try {
             const [heroRes, sectionRes, testimonialRes] = await Promise.all([
-                axios.get(`${API_BASE}/api/content/hero?includeInactive=true`),
-                axios.get(`${API_BASE}/api/content/sections?includeInactive=true`),
-                axios.get(`${API_BASE}/api/testimonials?includeInactive=true`)
+                api.get(`/api/content/hero?includeInactive=true`),
+                api.get(`/api/content/sections?includeInactive=true`),
+                api.get(`/api/testimonials?includeInactive=true`)
             ]);
             setHeroSlides(heroRes.data.data);
             setSections(sectionRes.data.data);
@@ -81,7 +81,7 @@ const ContentManager = () => {
             const url = activeTab === 'hero' ? `/api/content/hero/${id}`
                 : ['collections', 'features'].includes(activeTab) ? `/api/content/sections/${id}`
                     : `/api/testimonials/${id}`;
-            await axios.delete(`${API_BASE}${url}`);
+            await api.delete(url);
 
             toast.success('Deleted successfully');
             fetchData();
@@ -97,11 +97,11 @@ const ContentManager = () => {
                 : ['collections', 'features'].includes(activeTab) ? '/api/content/sections'
                     : '/api/testimonials';
             if (editingItem) {
-                await axios.put(`${API_BASE}${url}/${editingItem._id}`, formData);
+                await api.put(`${url}/${editingItem._id}`, formData);
 
                 toast.success('Updated successfully');
             } else {
-                await axios.post(`${API_BASE}${url}`, formData);
+                await api.post(url, formData);
 
                 toast.success('Added successfully');
             }
@@ -128,7 +128,7 @@ const ContentManager = () => {
 
         try {
             setLoading(true);
-            const res = await axios.post(`${API_BASE}/api/upload`, uploadData, {
+            const res = await api.post(`/api/upload`, uploadData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             const url = res.data.data.url;

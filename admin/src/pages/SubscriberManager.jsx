@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { toast } from 'react-toastify';
 import { Trash2, Mail, Calendar, Search, Power, PowerOff } from 'lucide-react';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 
 const SubscriberManager = () => {
@@ -13,7 +11,7 @@ const SubscriberManager = () => {
 
     const fetchSubscribers = async () => {
         try {
-            const response = await axios.get(`${API_BASE}/api/subscribers`);
+            const response = await api.get(`/api/subscribers`);
 
             setSubscribers(response.data.data);
             setLoading(false);
@@ -28,7 +26,7 @@ const SubscriberManager = () => {
 
     const handleToggle = async (id, currentStatus) => {
         try {
-            await axios.patch(`${API_BASE}/api/subscribers/${id}/toggle`);
+            await api.patch(`/api/subscribers/${id}/toggle`);
             toast.success(`Subscriber ${currentStatus ? 'deactivated' : 'reactivated'}`);
             fetchSubscribers();
         } catch (error) {
@@ -39,7 +37,7 @@ const SubscriberManager = () => {
     const handleDelete = async (id) => {
         if (window.confirm('PERMANENTLY DELETE this subscriber? This action cannot be undone.')) {
             try {
-                await axios.delete(`${API_BASE}/api/subscribers/${id}`);
+                await api.delete(`/api/subscribers/${id}`);
                 toast.success('Subscriber deleted permanently');
                 fetchSubscribers();
             } catch (error) {

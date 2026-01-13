@@ -11,6 +11,7 @@ import ProductManager from './pages/ProductManager';
 import CategoryManager from './pages/CategoryManager';
 import ContentManager from './pages/ContentManager';
 import SubscriberManager from './pages/SubscriberManager';
+import QRCodeManager from './pages/QRCodeManager';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="categories" element={<CategoryManager />} />
             <Route path="content" element={<ContentManager />} />
             <Route path="subscribers" element={<SubscriberManager />} />
+            <Route path="qrcodes" element={<QRCodeManager />} />
           </Route>
         </Routes>
         <ToastContainer position="bottom-right" theme="dark" />

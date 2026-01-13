@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { toast } from 'react-toastify';
 import { Edit2, Trash2, Plus, Search, Filter, X, Upload } from 'lucide-react';
 
@@ -59,7 +59,7 @@ const ProductManager = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get(`${API_BASE}/api/categories`);
+            const response = await api.get(`/api/categories`);
             setCategories(response.data.data);
             // Set default category if creating new
             if (!editingProduct && response.data.data.length > 0) {
@@ -72,7 +72,7 @@ const ProductManager = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get(`${API_BASE}/api/products?limit=100&includeInactive=true`);
+            const response = await api.get(`/api/products?limit=100&includeInactive=true`);
 
             setProducts(response.data.data);
             setLoading(false);
@@ -158,7 +158,7 @@ const ProductManager = () => {
 
         try {
             setLoading(true); // diligent loading state
-            const res = await axios.post(`${API_BASE}/api/upload`, uploadData, {
+            const res = await api.post(`/api/upload`, uploadData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             const url = res.data.data.url;
@@ -182,7 +182,7 @@ const ProductManager = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
             try {
-                await axios.delete(`${API_BASE}/api/products/${id}`);
+                await api.delete(`/api/products/${id}`);
 
                 toast.success('Product deleted');
                 fetchProducts();
@@ -205,10 +205,10 @@ const ProductManager = () => {
             };
 
             if (editingProduct) {
-                await axios.put(`${API_BASE}/api/products/${editingProduct._id}`, submissionData);
+                await api.put(`/api/products/${editingProduct._id}`, submissionData);
                 toast.success('Product updated');
             } else {
-                await axios.post(`${API_BASE}/api/products`, submissionData);
+                await api.post(`/api/products`, submissionData);
                 toast.success('Product added');
             }
             setShowModal(false);

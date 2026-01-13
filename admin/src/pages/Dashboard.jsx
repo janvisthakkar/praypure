@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { Package, Users, Image, Star, LogOut } from 'lucide-react';
 import { toast } from 'react-toastify';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 
 const Dashboard = () => {
@@ -21,11 +19,11 @@ const Dashboard = () => {
         const fetchDashboardData = async () => {
             try {
                 const [prodRes, subRes, testRes, heroRes, settingsRes] = await Promise.all([
-                    axios.get(`${API_BASE}/api/products`),
-                    axios.get(`${API_BASE}/api/subscribers`),
-                    axios.get(`${API_BASE}/api/testimonials`),
-                    axios.get(`${API_BASE}/api/content/hero`),
-                    axios.get(`${API_BASE}/api/settings`)
+                    api.get(`/api/products`),
+                    api.get(`/api/subscribers`),
+                    api.get(`/api/testimonials`),
+                    api.get(`/api/content/hero`),
+                    api.get(`/api/settings`)
                 ]);
 
                 setStats({
@@ -48,7 +46,7 @@ const Dashboard = () => {
     const togglePriceVisibility = async () => {
         try {
             const newValue = !settings.hidePrices;
-            const res = await axios.put(`${API_BASE}/api/settings/hidePrices`, { value: newValue });
+            const res = await api.put(`/api/settings/hidePrices`, { value: newValue });
             if (res.data.success) {
                 setSettings(prev => ({ ...prev, hidePrices: newValue }));
                 toast.success('Store visibility updated');
