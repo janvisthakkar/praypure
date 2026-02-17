@@ -53,9 +53,13 @@ const Sidebar = () => {
 
             <div className="sidebar-footer">
                 <div className="admin-profile">
-                    <div className="avatar">{user?.username?.[0].toUpperCase()}</div>
+                    {user?.image ? (
+                        <img src={user.image} alt={user.name} className="avatar-img" referrerPolicy="no-referrer" />
+                    ) : (
+                        <div className="avatar">{(user?.name || user?.username)?.[0]?.toUpperCase()}</div>
+                    )}
                     <div className="info">
-                        <p>{user?.username}</p>
+                        <p>{user?.name || user?.username}</p>
                         <span>{user?.role}</span>
                     </div>
                 </div>

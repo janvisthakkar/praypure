@@ -119,6 +119,15 @@ body {
     margin-right: 0.75rem;
 }
 
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.75rem;
+    border: 2px solid var(--accent);
+}
+
 .info p {
     margin: 0;
     font-weight: 600;

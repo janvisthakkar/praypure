@@ -16,9 +16,9 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = async (email, password) => {
+    const googleLogin = async (credential) => {
         try {
-            const response = await api.post(`/api/auth/login`, { email, password });
+            const response = await api.post(`/api/auth/google`, { credential });
 
             if (response.data.success) {
                 const { token, admin } = response.data;
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             return {
                 success: false,
-                message: error.response?.data?.message || 'Login failed'
+                message: error.response?.data?.message || 'Google login failed'
             };
         }
     };
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
+        <AuthContext.Provider value={{ user, googleLogin, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );
