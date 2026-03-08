@@ -14,6 +14,8 @@ const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:5173',
     'https://admin.praypure.com',
+    'https://www.praypure.com',
+    'https://praypure.com',
     'https://praypure-frontend.vercel.app',
     'https://praypure-admins.vercel.app'
 ];
