@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import ProductCard from '../components/ProductCard';
 import Loader from '../components/Loader';
 import './ProductCategory.css';
@@ -13,7 +13,7 @@ const CategoryPage = () => {
     const [loading, setLoading] = useState(true);
     const [pageData, setPageData] = useState({ title: '', subtitle: '' });
 
-    const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 
     // Reset state when slug changes
     useEffect(() => {
@@ -28,7 +28,7 @@ const CategoryPage = () => {
             setLoading(true);
             try {
                 // Fetch dynamic category info using slug
-                const catRes = await axios.get(`${API_BASE}/api/categories`);
+                const catRes = await api.get('/categories');
                 const currentCat = catRes.data.data?.find(c => c.slug === slug);
 
                 if (currentCat) {
@@ -40,11 +40,11 @@ const CategoryPage = () => {
                     });
 
                     // Fetch products using the internal name
-                    const productRes = await axios.get(`${API_BASE}/api/products?category=${encodeURIComponent(categoryName)}`);
+                    const productRes = await api.get(`/products?category=${encodeURIComponent(categoryName)}`);
                     setProducts(productRes.data.data || []);
 
                     // Fetch filters dynamically
-                    const filterRes = await axios.get(`${API_BASE}/api/products/fragrances?category=${encodeURIComponent(categoryName)}`);
+                    const filterRes = await api.get(`/products/fragrances?category=${encodeURIComponent(categoryName)}`);
                     if (filterRes.data.success) {
                         setFilters(['All', ...filterRes.data.data]);
                     }
@@ -56,7 +56,7 @@ const CategoryPage = () => {
             }
         };
         fetchData();
-    }, [slug, API_BASE]);
+    }, [slug]);
 
     const filteredProducts = filter === 'All'
         ? products

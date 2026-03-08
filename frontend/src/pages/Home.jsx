@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { toast } from 'react-toastify';
 import HeroCarousel from '../components/HeroCarousel';
 import TestimonialCarousel from '../components/TestimonialCarousel';
@@ -47,7 +47,7 @@ const Home = () => {
     const [collectionSections, setCollectionSections] = useState([]);
     const [featureSections, setFeatureSections] = useState([]);
 
-    const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,9 +55,9 @@ const Home = () => {
             try {
                 // Fetch all data in parallel
                 const [instaRes, prodRes, sectRes] = await Promise.all([
-                    axios.get(`${API_BASE}/api/content/instagram`).catch(() => ({ data: { success: false } })),
-                    axios.get(`${API_BASE}/api/products`).catch(() => ({ data: { success: false } })),
-                    axios.get(`${API_BASE}/api/content/sections`).catch(() => ({ data: { success: false } }))
+                    api.get('/content/instagram').catch(() => ({ data: { success: false } })),
+                    api.get('/products').catch(() => ({ data: { success: false } })),
+                    api.get('/content/sections').catch(() => ({ data: { success: false } }))
                 ]);
 
                 // Handle Instagram
@@ -90,7 +90,7 @@ const Home = () => {
         e.preventDefault();
         setSubscribing(true);
         try {
-            await axios.post(`${API_BASE}/api/subscribers`, { email });
+            await api.post('/subscribers', { email });
             toast.success('Thank you for subscribing! We will keep you updated.');
             setEmail('');
         } catch (error) {

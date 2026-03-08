@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
-import axios from 'axios';
+import api from '../api';
 import './TestimonialCarousel.css';
 
 const TestimonialCarousel = () => {
     const [testimonials, setTestimonials] = useState([]);
 
-    const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 
     useEffect(() => {
         const fetchTestimonials = async () => {
             try {
-                const response = await axios.get(`${API_BASE}/api/testimonials`);
+                const response = await api.get('/testimonials');
                 setTestimonials(response.data.data || []);
             } catch (error) {
                 // Fallback to default testimonials
