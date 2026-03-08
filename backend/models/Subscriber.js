@@ -27,4 +27,5 @@ const subscriberSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Subscriber', subscriberSchema);
+const { mainDB } = require('../config/db');
+module.exports = mainDB.model('Subscriber', subscriberSchema);

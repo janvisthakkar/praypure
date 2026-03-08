@@ -50,4 +50,5 @@ const offerSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Offer', offerSchema);
+const { mainDB } = require('../config/db');
+module.exports = mainDB.model('Offer', offerSchema);

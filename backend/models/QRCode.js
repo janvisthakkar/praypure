@@ -26,6 +26,7 @@ const qrcodeSchema = new mongoose.Schema({
     }
 });
 
-const QRCode = mongoose.model('QRCode', qrcodeSchema);
+const { qrDB } = require('../config/db');
+const QRCode = qrDB.model('QRCode', qrcodeSchema);
 
 module.exports = QRCode;
