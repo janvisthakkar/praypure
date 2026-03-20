@@ -192,27 +192,33 @@ const Home = () => {
                 <div className="container">
                     <div className="section-header">
                         <h2 className="section-title">Glimpses of Praypure</h2>
-                        <p className="section-subtitle">Follow us on Instagram for more updates</p>
+                        <p className="section-subtitle">
+                            Follow us on Instagram for more updates<br/>
+                            <a href="https://www.instagram.com/praypure.in" target="_blank" rel="noopener noreferrer" className="glimpses-cta" style={{marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'var(--accent)', color: 'black', padding: '6px 16px', borderRadius: '20px', fontWeight: '600', textDecoration: 'none', fontSize: '0.9rem', transition: '0.3s'}}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                                @praypure.in
+                            </a>
+                        </p>
                     </div>
                     <div className="gallery-grid">
                         {instagramImages.map((img, index) => (
                             <a
-                                key={img.id}
+                                key={img.id || img._id}
                                 href={img.permalink}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={`gallery-item ${index === 0 ? 'large' : ''}`}
                             >
                                 <img
-                                    src={img.media_type === 'VIDEO' ? img.thumbnail_url : img.media_url}
+                                    src={img.media_type === 'VIDEO' ? (img.thumbnail_url || img.media_url) : img.media_url}
                                     alt={img.caption || 'Praypure Instagram'}
                                     className="gallery-img"
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                     loading="lazy"
                                 />
                                 <div className="gallery-overlay">
-                                    <span className="instagram-icon">📷</span>
-                                    {index === 0 && <span>View on Instagram</span>}
+                                    <svg className="instagram-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                                    <span className="gallery-caption">{img.caption ? (img.caption.length > 60 ? img.caption.substring(0, 60) + '...' : img.caption) : 'View on Instagram'}</span>
                                 </div>
                             </a>
                         ))}

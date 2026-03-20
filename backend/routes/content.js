@@ -10,7 +10,10 @@ const {
     deleteHeroSlide,
     addHomeSection,
     updateHomeSection,
-    deleteHomeSection
+    deleteHomeSection,
+    addInstagramPost,
+    updateInstagramPost,
+    deleteInstagramPost
 } = require('../controllers/contentController');
 const { verifyToken } = require('../controllers/authController');
 
@@ -27,6 +30,9 @@ router.delete('/sections/:id', verifyToken, deleteHomeSection);
 
 
 router.get('/offers', getOffers);
-router.get('/instagram', getInstagramFeed);
 
+router.get('/instagram', getInstagramFeed);
+router.post('/instagram', verifyToken, addInstagramPost);
+router.put('/instagram/:id', verifyToken, updateInstagramPost);
+router.delete('/instagram/:id', verifyToken, deleteInstagramPost);
 module.exports = router;

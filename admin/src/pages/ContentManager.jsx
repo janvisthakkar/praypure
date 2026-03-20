@@ -32,6 +32,7 @@ const ContentManager = () => {
     const [heroSlides, setHeroSlides] = useState([]);
     const [sections, setSections] = useState([]);
     const [testimonials, setTestimonials] = useState([]);
+    const [instagramPosts, setInstagramPosts] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -40,14 +41,16 @@ const ContentManager = () => {
 
     const fetchData = async () => {
         try {
-            const [heroRes, sectionRes, testimonialRes] = await Promise.all([
+            const [heroRes, sectionRes, testimonialRes, instaRes] = await Promise.all([
                 api.get(`/api/content/hero?includeInactive=true`),
                 api.get(`/api/content/sections?includeInactive=true`),
-                api.get(`/api/testimonials?includeInactive=true`)
+                api.get(`/api/testimonials?includeInactive=true`),
+                api.get(`/api/content/instagram?includeInactive=true`)
             ]);
             setHeroSlides(heroRes.data.data);
             setSections(sectionRes.data.data);
             setTestimonials(testimonialRes.data.data);
+            setInstagramPosts(instaRes.data.data);
         } catch (error) {
             toast.error('Failed to fetch content');
         }
@@ -68,6 +71,8 @@ const ContentManager = () => {
                 sectionType: 'collection', title: '', description: '', image: '', icon: '🌿', link: '', order: sections.filter(s => s.sectionType === 'collection').length + 1, isActive: true
             } : activeTab === 'features' ? {
                 sectionType: 'feature', title: '', description: '', image: '', icon: '🌿', link: '', order: sections.filter(s => s.sectionType === 'features').length + 1, isActive: true
+            } : activeTab === 'instagram' ? {
+                media_url: '', permalink: 'https://www.instagram.com/praypure.in/', caption: '', media_type: 'IMAGE', isActive: true, order: instagramPosts.length + 1
             } : {
                 name: '', location: '', text: '', rating: 5, avatar: '', isActive: true
             });
@@ -80,6 +85,7 @@ const ContentManager = () => {
         try {
             const url = activeTab === 'hero' ? `/api/content/hero/${id}`
                 : ['collections', 'features'].includes(activeTab) ? `/api/content/sections/${id}`
+                    : activeTab === 'instagram' ? `/api/content/instagram/${id}`
                     : `/api/testimonials/${id}`;
             await api.delete(url);
 
@@ -95,6 +101,7 @@ const ContentManager = () => {
         try {
             const url = activeTab === 'hero' ? '/api/content/hero'
                 : ['collections', 'features'].includes(activeTab) ? '/api/content/sections'
+                    : activeTab === 'instagram' ? '/api/content/instagram'
                     : '/api/testimonials';
             if (editingItem) {
                 await api.put(`${url}/${editingItem._id}`, formData);
@@ -122,6 +129,7 @@ const ContentManager = () => {
         // Determine folder based on active tab
         const folder = activeTab === 'hero' ? 'hero'
             : activeTab === 'testimonials' ? 'testimonials'
+                : activeTab === 'instagram' ? 'instagram'
                 : 'content';
 
         uploadData.append('folder', folder);
@@ -166,12 +174,13 @@ const ContentManager = () => {
                 <button className={activeTab === 'hero' ? 'active' : ''} onClick={() => setActiveTab('hero')}>Hero Carousel</button>
                 <button className={activeTab === 'collections' ? 'active' : ''} onClick={() => setActiveTab('collections')}>Collections</button>
                 <button className={activeTab === 'features' ? 'active' : ''} onClick={() => setActiveTab('features')}>Features</button>
+                <button className={activeTab === 'instagram' ? 'active' : ''} onClick={() => setActiveTab('instagram')}>Instagram</button>
                 <button className={activeTab === 'testimonials' ? 'active' : ''} onClick={() => setActiveTab('testimonials')}>Testimonials</button>
             </div>
 
             <div className="tab-content">
                 <div className="action-bar">
-                    <button className="btn-add" onClick={() => handleOpenModal()}><Plus size={20} /> Add {activeTab === 'hero' ? 'Slide' : activeTab === 'collections' ? 'Collection' : activeTab === 'features' ? 'Feature' : 'Testimonial'}</button>
+                    <button className="btn-add" onClick={() => handleOpenModal()}><Plus size={20} /> Add {activeTab === 'hero' ? 'Slide' : activeTab === 'collections' ? 'Collection' : activeTab === 'features' ? 'Feature' : activeTab === 'instagram' ? 'Instagram Post' : 'Testimonial'}</button>
                 </div>
 
                 {activeTab === 'hero' ? (
@@ -215,6 +224,27 @@ const ContentManager = () => {
                                     </div>
                                 </div>
                             ))}
+                    </div>
+                ) : activeTab === 'instagram' ? (
+                    <div className="grid">
+                        {instagramPosts.map(post => (
+                            <div key={post._id} className="content-card">
+                                <img src={getImageUrl(post.media_url)} alt="" className="card-img" style={{height: '250px'}} />
+                                <div className="card-info">
+                                    <h4 style={{ fontSize: '1.2rem' }}>
+                                        <a href={post.permalink} target="_blank" rel="noopener noreferrer" style={{color: 'var(--accent)', textDecoration: 'none'}}>View Post ↗</a>
+                                    </h4>
+                                    <p>{post.caption || 'No caption'}</p>
+                                    <div className="update-info" style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                                        Order: {post.order} | Updated: {formatDate(post.updatedAt)}
+                                    </div>
+                                    <div className="card-actions">
+                                        <button onClick={() => handleOpenModal(post)}><Edit2 size={16} /></button>
+                                        <button onClick={() => handleDelete(post._id)}><Trash2 size={16} /></button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 ) : (
                     <div className="grid">
@@ -330,6 +360,37 @@ const ContentManager = () => {
                                                 <input type="text" placeholder="Icon (Emoji)" value={formData.icon} onChange={e => setFormData({ ...formData, icon: e.target.value })} />
                                             </div>
                                         )}
+                                        <div className="form-group full-width checkbox-wrapper">
+                                            <label className="checkbox-label">
+                                                <input type="checkbox" checked={formData.isActive !== false} onChange={e => setFormData({ ...formData, isActive: e.target.checked })} />
+                                                <span>Active (Visible on Website)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                ) : activeTab === 'instagram' ? (
+                                    <div className="form-grid">
+                                        <div className="form-group">
+                                            <label>Image URL</label>
+                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                <input type="text" placeholder="Image URL" value={formData.media_url} onChange={e => setFormData({ ...formData, media_url: e.target.value })} required style={{ flex: 1 }} />
+                                                <label className="btn-inline" style={{ background: 'rgba(212, 175, 55, 0.1)', color: 'var(--accent)', border: '1px solid var(--accent)', padding: '0 12px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                                    <input type="file" hidden accept="image/*" onChange={(e) => handleFileUpload(e, 'media_url')} />
+                                                    <Upload size={16} /> Upload
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Instagram Post Permalink URL</label>
+                                            <input type="text" placeholder="e.g. https://instagram.com/p/12345" value={formData.permalink} onChange={e => setFormData({ ...formData, permalink: e.target.value })} required />
+                                        </div>
+                                        <div className="form-group full-width">
+                                            <label>Caption (Optional)</label>
+                                            <textarea placeholder="e.g. Pure Dhoop Sticks..." value={formData.caption} onChange={e => setFormData({ ...formData, caption: e.target.value })} style={{ width: '100%', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border)', borderRadius: '8px', padding: '10px', height: '60px', outline: 'none' }} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Order (Display Position)</label>
+                                            <input type="number" value={formData.order} onChange={e => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })} />
+                                        </div>
                                         <div className="form-group full-width checkbox-wrapper">
                                             <label className="checkbox-label">
                                                 <input type="checkbox" checked={formData.isActive !== false} onChange={e => setFormData({ ...formData, isActive: e.target.checked })} />

@@ -1,6 +1,7 @@
 const HeroSlide = require('../models/HeroSlide');
 const HomeSection = require('../models/HomeSection');
 const Offer = require('../models/Offer');
+const InstagramPost = require('../models/InstagramPost');
 
 // Get Active Hero Slides
 exports.getHeroSlides = async (req, res) => {
@@ -94,21 +95,42 @@ exports.getOffers = async (req, res) => {
     }
 };
 
-// Get Instagram Feed
+// Get Instagram Feed (Local Database)
 exports.getInstagramFeed = async (req, res) => {
     try {
-        const token = process.env.INSTAGRAM_ACCESS_TOKEN;
-        if (!token) {
-            // Return mock data if no token is configured (fail gracefully)
-            return res.json({ success: false, message: 'No Instagram token configured', data: [] });
-        }
-
-        const axios = require('axios');
-        const response = await axios.get(`https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url&access_token=${token}&limit=6`);
-
-        res.json({ success: true, count: response.data.data.length, data: response.data.data });
+        const filter = req.query.includeInactive === 'true' ? {} : { isActive: { $ne: false } };
+        const posts = await InstagramPost.find(filter).sort({ order: 1 }).populate('updatedBy', 'username');
+        res.json({ success: true, count: posts.length, data: posts });
     } catch (error) {
-        console.error('Instagram API Error:', error.message);
-        res.status(500).json({ success: false, message: 'Failed to fetch Instagram feed' });
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+exports.addInstagramPost = async (req, res) => {
+    try {
+        const postData = { ...req.body, updatedBy: req.admin.id };
+        const post = await InstagramPost.create(postData);
+        res.status(201).json({ success: true, data: post });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+};
+
+exports.updateInstagramPost = async (req, res) => {
+    try {
+        const updateData = { ...req.body, updatedBy: req.admin.id };
+        const post = await InstagramPost.findByIdAndUpdate(req.params.id, updateData, { new: true }).populate('updatedBy', 'username');
+        res.json({ success: true, data: post });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
+    }
+};
+
+exports.deleteInstagramPost = async (req, res) => {
+    try {
+        await InstagramPost.findByIdAndDelete(req.params.id);
+        res.json({ success: true, message: 'Instagram post deleted' });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error.message });
     }
 };
