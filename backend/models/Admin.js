@@ -40,5 +40,4 @@ adminSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
 
-const { mainDB } = require('../config/db');
-module.exports = mainDB.model('Admin', adminSchema);
+module.exports = mongoose.model('Admin', adminSchema);

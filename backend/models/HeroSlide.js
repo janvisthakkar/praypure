@@ -39,5 +39,4 @@ const heroSlideSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const { mainDB } = require('../config/db');
-module.exports = mainDB.model('HeroSlide', heroSlideSchema);
+module.exports = mongoose.model('HeroSlide', heroSlideSchema);

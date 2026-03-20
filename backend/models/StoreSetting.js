@@ -13,5 +13,4 @@ const StoreSettingSchema = new mongoose.Schema({
     description: String
 }, { timestamps: true });
 
-const { mainDB } = require('../config/db');
-module.exports = mainDB.model('StoreSetting', StoreSettingSchema);
+module.exports = mongoose.model('StoreSetting', StoreSettingSchema);

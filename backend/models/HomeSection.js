@@ -43,5 +43,4 @@ const homeSectionSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const { mainDB } = require('../config/db');
-module.exports = mainDB.model('HomeSection', homeSectionSchema);
+module.exports = mongoose.model('HomeSection', homeSectionSchema);

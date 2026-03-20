@@ -38,5 +38,4 @@ const testimonialSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const { mainDB } = require('../config/db');
-module.exports = mainDB.model('Testimonial', testimonialSchema);
+module.exports = mongoose.model('Testimonial', testimonialSchema);

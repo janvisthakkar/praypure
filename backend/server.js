@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { connectDB } = require('./config/db');
+const connectDB = require('./config/db');
 require('dotenv').config();
 const path = require('path');
 
@@ -10,26 +10,7 @@ const app = express();
 connectDB();
 
 // Middleware
-const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://admin.praypure.com',
-    'https://www.praypure.com',
-    'https://praypure.com',
-    'https://praypure-frontend.vercel.app',
-    'https://praypure-admins.vercel.app'
-];
-
-app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

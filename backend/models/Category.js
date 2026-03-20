@@ -42,5 +42,4 @@ const categorySchema = new mongoose.Schema({
     timestamps: true
 });
 
-const { mainDB } = require('../config/db');
-module.exports = mainDB.model('Category', categorySchema);
+module.exports = mongoose.model('Category', categorySchema);

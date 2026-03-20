@@ -96,5 +96,4 @@ const productSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const { mainDB } = require('../config/db');
-module.exports = mainDB.model('Product', productSchema);
+module.exports = mongoose.model('Product', productSchema);
