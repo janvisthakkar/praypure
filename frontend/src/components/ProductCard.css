@@ -2,18 +2,21 @@
     background: var(--color-white);
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(62, 39, 35, 0.15);
-    transition: transform 0.3s;
+    box-shadow: 0 2px 12px rgba(62, 39, 35, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 300px;
 }
 
 .product-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(62, 39, 35, 0.15);
 }
 
 .product-image {
-    height: 250px;
+    height: 220px;
     background: var(--color-cream);
     position: relative;
     display: flex;
@@ -63,6 +66,7 @@
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
