@@ -30,7 +30,12 @@ const categorySchema = new mongoose.Schema({
         lowercase: true,
         trim: true
     },
-    isActive: {
+    status: {
+        type: String,
+        enum: ['Live', 'Coming Soon', 'Invisible'],
+        default: 'Live'
+    },
+    isActive: { // Deprecated: keeping for compatibility during migration
         type: Boolean,
         default: true
     },
