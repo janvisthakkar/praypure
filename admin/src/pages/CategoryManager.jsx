@@ -19,7 +19,7 @@ const CategoryManager = () => {
         description: '',
         image: '',
         slug: '',
-        isActive: true
+        status: 'Live'
     });
 
     const getImageUrl = (url) => {
@@ -52,7 +52,7 @@ const CategoryManager = () => {
             description: category.description || '',
             image: category.image || '',
             slug: category.slug || '',
-            isActive: category.isActive !== undefined ? category.isActive : true
+            status: category.status || (category.isActive ? 'Live' : 'Invisible')
         });
         setShowModal(true);
     };
@@ -117,7 +117,7 @@ const CategoryManager = () => {
                 <h2>Manage Categories</h2>
                 <button className="btn-add" onClick={() => {
                     setEditingCategory(null);
-                    setFormData({ name: '', title: '', subtitle: '', description: '', image: '', slug: '', isActive: true });
+                    setFormData({ name: '', title: '', subtitle: '', description: '', image: '', slug: '', status: 'Live' });
                     setShowModal(true);
                 }}>
                     <Plus size={20} /> Add Category
@@ -144,8 +144,8 @@ const CategoryManager = () => {
                                 <td>{cat.title}</td>
                                 <td><code>{cat.slug}</code></td>
                                 <td>
-                                    <span className={`status-pill ${cat.isActive ? 'active' : 'inactive'}`}>
-                                        {cat.isActive ? 'Live' : 'Hidden'}
+                                    <span className={`status-pill ${cat.status === 'Live' ? 'active' : cat.status === 'Coming Soon' ? 'warning' : 'inactive'}`}>
+                                        {cat.status || (cat.isActive ? 'Live' : 'Hidden')}
                                     </span>
                                 </td>
                                 <td className="actions">
@@ -210,11 +210,17 @@ const CategoryManager = () => {
                                     <label>Description (Meta/Page)</label>
                                     <textarea value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} placeholder="Longer description..."></textarea>
                                 </div>
-                                <div className="form-group checkbox-wrapper">
-                                    <label className="checkbox-label">
-                                        <input type="checkbox" checked={formData.isActive} onChange={e => setFormData({ ...formData, isActive: e.target.checked })} />
-                                        <span>Visible on Website?</span>
-                                    </label>
+                                <div className="form-group full-width">
+                                    <label>Status</label>
+                                    <select 
+                                        value={formData.status} 
+                                        onChange={e => setFormData({ ...formData, status: e.target.value })}
+                                        style={{ width: '100%', padding: '0.85rem', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border)', borderRadius: '10px', outline: 'none' }}
+                                    >
+                                        <option value="Live">Live (Visible on Website)</option>
+                                        <option value="Coming Soon">Coming Soon (Show Banner)</option>
+                                        <option value="Invisible">Invisible (Hidden everywhere)</option>
+                                    </select>
                                 </div>
                             </div>
                             <div className="modal-actions">
