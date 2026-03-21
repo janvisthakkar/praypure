@@ -216,6 +216,7 @@
     font-size: 36px;
     margin-bottom: var(--spacing-sm);
     position: relative;
+    text-align: center;
 }
 
 .subscribe p {
@@ -224,6 +225,7 @@
     opacity: 0.9;
     font-size: 18px;
     position: relative;
+    text-align: center;
 }
 
 .subscribe-form {
@@ -283,6 +285,10 @@
         padding: 0;
         border-radius: 0;
         gap: var(--spacing-sm);
+    }
+
+    .subscribe {
+        padding: var(--spacing-xl) 0;
     }
 
     .subscribe-form input,

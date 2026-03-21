@@ -140,11 +140,13 @@
 
 @media (max-width: 768px) {
     .about-banner {
-        height: 500px;
+        height: 350px;
+        padding: var(--spacing-lg) 0;
     }
 
     .journey-content {
         grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
     }
 
     .page-title {
