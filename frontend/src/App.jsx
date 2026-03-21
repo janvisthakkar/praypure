@@ -10,6 +10,7 @@ import Offers from './pages/Offers';
 import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
+import FeedbackPage from './pages/FeedbackPage';
 import './App.css';
 
 import { ToastContainer } from 'react-toastify';
@@ -25,11 +26,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/:slug" element={<CategoryPage />} />
             <Route path="/offers" element={<Offers />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsConditions />} />
+            <Route path="/feedback" element={<FeedbackPage />} />
+            <Route path="/:slug" element={<CategoryPage />} />
           </Routes>
         </main>
         <Footer />
