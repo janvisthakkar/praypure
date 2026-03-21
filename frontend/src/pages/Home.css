@@ -156,6 +156,26 @@
     transform: scale(1.1);
 }
 
+.gallery-insta-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--color-white);
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-insta-badge {
+    opacity: 0; /* Hide when full overlay appears on hover */
+}
+
 .gallery-overlay {
     position: absolute;
     inset: 0;
