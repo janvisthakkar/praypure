@@ -1,0 +1,43 @@
+# Frontend (Main Website) Documentation
+
+The Praypure Frontend is the public-facing e-commerce site, built using Create React App (CRA).
+
+## Tech Stack
+-   **Framework**: React (Create React App)
+-   **Styling**: Custom CSS / Vanilla CSS
+-   **Animations**: Swiper.js (for carousels), React Icons
+-   **API Client**: Axios
+
+## Pages & Features
+
+### 1. Home Page ([Home.jsx](file:///c:/Users/Janvi%20Thakkar/OneDrive/Desktop/Praypure/frontend/src/pages/Home.jsx))
+-   **Hero Carousel**: Dynamic banner slides managed via Admin.
+-   **Bento Instagram Grid**: A modern asymmetrical grid showing "Glimpses of Praypure".
+-   **Testimonials**: Sliding customer reviews.
+-   **Product Highlights**: Sections showcasing featured categories.
+
+### 2. Category Pages ([CategoryPage.jsx](file:///c:/Users/Janvi%20Thakkar/OneDrive/Desktop/Praypure/frontend/src/pages/CategoryPage.jsx))
+-   **Dynamic Routing**: Pages like `/dhoop-sticks` or `/incense-sticks` are generated dynamically based on the category slug.
+-   **Product Grid**: Fetches products belonging to the active category.
+-   **Filter Sidebar**: Allows users to filter products by fragrance or other attributes.
+
+### 3. About & Company Pages
+-   **About Us**: The story and mission of Praypure.
+-   **Contact Us**: Direct communication channel for customers.
+-   **Legal**: Privacy Policy and Terms & Conditions.
+
+### 4. Offers Page
+-   Dedicated landing page for active promotions and sales.
+
+## Environment Variables
+The Frontend requires the following in Vercel/Environment:
+
+| Variable | Description |
+| :-- | :-- |
+| `REACT_APP_API_URL` | The base URL of the Backend API. **Note**: Do NOT include `/api` suffix as the code appends it. (e.g. `https://api.praypure.com`) |
+
+## Git & Deployment
+-   **Branch**: `frontend`
+-   **Deployment**: Automatically deployed to Vercel via the `frontend` branch.
+-   **Vercel Project**: `praypure-frontend`
+-   **URL**: `www.praypure.com`

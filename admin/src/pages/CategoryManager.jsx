@@ -215,11 +215,16 @@ const CategoryManager = () => {
                                     <select 
                                         value={formData.status} 
                                         onChange={e => setFormData({ ...formData, status: e.target.value })}
-                                        style={{ width: '100%', padding: '0.85rem', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border)', borderRadius: '10px', outline: 'none' }}
+                                        style={{ 
+                                            width: '100%', padding: '0.85rem', 
+                                            background: '#1a1625', color: 'white', 
+                                            border: '1px solid var(--border)', borderRadius: '10px', 
+                                            outline: 'none', cursor: 'pointer'
+                                        }}
                                     >
-                                        <option value="Live">Live (Visible on Website)</option>
-                                        <option value="Coming Soon">Coming Soon (Show Banner)</option>
-                                        <option value="Invisible">Invisible (Hidden everywhere)</option>
+                                        <option value="Live" style={{ background: '#1a1625', color: 'white' }}>🟢 Live (Visible on Website)</option>
+                                        <option value="Coming Soon" style={{ background: '#1a1625', color: '#ffc107' }}>🟡 Coming Soon (Show Banner)</option>
+                                        <option value="Invisible" style={{ background: '#1a1625', color: '#ff6b6b' }}>🔴 Invisible (Hidden everywhere)</option>
                                     </select>
                                 </div>
                             </div>

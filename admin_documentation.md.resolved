@@ -1,0 +1,51 @@
+# Admin Panel Documentation
+
+The Praypure Admin Panel is a dedicated React application built with Vite and TailwindCSS, designed for managing the store's content, products, and operational data.
+
+## Tech Stack
+-   **Frontend Framework**: React (Vite)
+-   **Styling**: TailwindCSS
+-   **Icons**: React Icons
+-   **API Client**: Axios
+-   **Authentication**: JWT-based (Stored in LocalStorage)
+
+## Key Features & Controls
+
+### 1. Dashboard
+-   **Purpose**: Provides a high-level overview of the store's performance.
+-   **Functionality**: Displays key metrics (subscribers, products, orders - if available) and recent activity.
+
+### 2. Product Manager ([ProductManager.jsx](file:///c:/Users/Janvi%20Thakkar/OneDrive/Desktop/Praypure/admin/src/pages/ProductManager.jsx))
+-   **Control**: Full CRUD (Create, Read, Update, Delete) for products.
+-   **Details**: Admins can set product names, descriptions, pricing, images (via AWS S3 upload), and categories.
+
+### 3. Category Manager ([CategoryManager.jsx](file:///c:/Users/Janvi%20Thakkar/OneDrive/Desktop/Praypure/admin/src/pages/CategoryManager.jsx))
+-   **Control**: Manage product categories (e.g., Incense Sticks, Dhoop Sticks).
+-   **Details**: Set category names, titles, and select visibility status (**Live**, **Coming Soon**, or **Invisible**).
+
+### 4. Content Manager ([ContentManager.jsx](file:///c:/Users/Janvi%20Thakkar/OneDrive/Desktop/Praypure/admin/src/pages/ContentManager.jsx))
+-   **Control**: Manage dynamic site content.
+-   **Hero Slides**: Edit the home page banner slider (images, titles, and CTA links).
+-   **Testimonials**: Manage customer reviews shown on the home page.
+-   **Instagram Gallery**: A specialized section to manage the "Glimpses of Praypure" section. Allows uploading images manually and linking them to Instagram posts.
+
+### 5. QR Code Manager ([QRCodeManager.jsx](file:///c:/Users/Janvi%20Thakkar/OneDrive/Desktop/Praypure/admin/src/pages/QRCodeManager.jsx))
+-   **Control**: Generate and track QR codes for products or marketing.
+-   **Details**: Used for product packaging to link customers to specific URLs.
+
+### 6. Subscriber Manager ([SubscriberManager.jsx](file:///c:/Users/Janvi%20Thakkar/OneDrive/Desktop/Praypure/admin/src/pages/SubscriberManager.jsx))
+-   **Control**: View and manage email list subscribers.
+-   **Details**: Export email lists for marketing campaigns.
+
+## Environment Variables
+The Admin panel requires the following variable for building/deployment:
+
+| Variable | Description |
+| :-- | :-- |
+| `VITE_API_URL` | The base URL of the Backend API (e.g., `https://api.praypure.com`). |
+
+## Git & Deployment
+-   **Branch**: `admin`
+-   **Deployment**: Automatically deployed to Vercel via the `admin` branch.
+-   **Vercel Project**: `praypure-admins`
+-   **URL**: `admin.praypure.com`
