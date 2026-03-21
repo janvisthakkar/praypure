@@ -11,28 +11,28 @@ const FALLBACK_IMAGES = [
     {
         id: 'fb1',
         media_url: '/assets/images/collection_dhoop_sticks_1764862353813.png',
-        permalink: 'https://www.instagram.com/praypure/',
+        permalink: 'https://www.instagram.com/praypure.in/',
         caption: 'Pure Dhoop Sticks for your daily prayers',
         media_type: 'IMAGE'
     },
     {
         id: 'fb2',
         media_url: '/assets/images/collection_incense_sticks_1764862333586.png',
-        permalink: 'https://www.instagram.com/praypure/',
+        permalink: 'https://www.instagram.com/praypure.in/',
         caption: 'Handcrafted Incense Sticks',
         media_type: 'IMAGE'
     },
     {
         id: 'fb3',
         media_url: '/assets/images/collection_havan_cups_1764862408665.png',
-        permalink: 'https://www.instagram.com/praypure/',
+        permalink: 'https://www.instagram.com/praypure.in/',
         caption: 'Traditional Havan Cups',
         media_type: 'IMAGE'
     },
     {
         id: 'fb4',
         media_url: '/assets/images/collection_dhoop_cones_1764862379070.png',
-        permalink: 'https://www.instagram.com/praypure/',
+        permalink: 'https://www.instagram.com/praypure.in/',
         caption: 'Natural Dhoop Cones',
         media_type: 'IMAGE'
     }

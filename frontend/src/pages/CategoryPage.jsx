@@ -11,7 +11,7 @@ const CategoryPage = () => {
     const [filters, setFilters] = useState(['All']);
     const [filter, setFilter] = useState('All');
     const [loading, setLoading] = useState(true);
-    const [pageData, setPageData] = useState({ title: '', subtitle: '' });
+    const [pageData, setPageData] = useState({ title: '', subtitle: '', status: 'Live' });
 
     const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -36,7 +36,8 @@ const CategoryPage = () => {
                     setPageData({
                         title: currentCat.title,
                         subtitle: currentCat.subtitle,
-                        image: currentCat.image
+                        image: currentCat.image,
+                        status: currentCat.status || 'Live'
                     });
 
                     // Fetch products using the internal name
@@ -72,50 +73,75 @@ const CategoryPage = () => {
             </section>
 
             <div className="container product-layout">
-                {/* Mobile Dropdown Filter */}
-                <select
-                    className="mobile-filter-select"
-                    value={filter}
-                    onChange={(e) => setFilter(e.target.value)}
-                >
-                    {filters.map(f => (
-                        <option key={f} value={f}>{f}</option>
-                    ))}
-                </select>
-
-                {/* Desktop Sidebar Filter */}
-                <aside className="filters-sidebar">
-                    <h3 className="filter-title">Categories</h3>
-                    <div className="filter-list">
-                        {filters.map(f => (
-                            <button
-                                key={f}
-                                className={`filter-btn ${filter === f ? 'active' : ''}`}
-                                onClick={() => setFilter(f)}
-                            >
-                                {f}
-                            </button>
-                        ))}
+                {pageData.status === 'Coming Soon' ? (
+                    <div className="coming-soon-container full-width">
+                        <div className="coming-soon-banner">
+                            <div className="coming-soon-content">
+                                <span className="coming-soon-badge">New Arrival Soon</span>
+                                <h2>Something Pure is Coming Your Way</h2>
+                                <p>We're currently handcrafting the perfect collection for <strong>{pageData.title}</strong>. Our artisans are putting in the extra care to ensure every product meets the Praypure standard of purity and tradition.</p>
+                                <div className="stay-tuned">
+                                    <div className="pulse-dot"></div>
+                                    <span>Stay Tuned • Preparing with Love</span>
+                                </div>
+                                <div className="coming-soon-actions">
+                                    <button className="btn btn-primary" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>Notify Me</button>
+                                </div>
+                            </div>
+                            <div className="coming-soon-decor">
+                                <div className="decor-circle circle-1"></div>
+                                <div className="decor-circle circle-2"></div>
+                            </div>
+                        </div>
                     </div>
-                </aside>
-
-                {/* Product Grid */}
-                <main className="products-grid-container">
-                    {loading ? (
-                        <Loader />
-                    ) : filteredProducts.length > 0 ? (
-                        <div className="products-grid">
-                            {filteredProducts.map((product) => (
-                                <ProductCard key={product._id} product={product} />
+                ) : (
+                    <>
+                        {/* Mobile Dropdown Filter */}
+                        <select
+                            className="mobile-filter-select"
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                        >
+                            {filters.map(f => (
+                                <option key={f} value={f}>{f}</option>
                             ))}
-                        </div>
-                    ) : (
-                        <div className="no-products-message">
-                            <h3>No items available</h3>
-                            <p>We couldn't find any {pageData.title} matching your selection.</p>
-                        </div>
-                    )}
-                </main>
+                        </select>
+
+                        {/* Desktop Sidebar Filter */}
+                        <aside className="filters-sidebar">
+                            <h3 className="filter-title">Categories</h3>
+                            <div className="filter-list">
+                                {filters.map(f => (
+                                    <button
+                                        key={f}
+                                        className={`filter-btn ${filter === f ? 'active' : ''}`}
+                                        onClick={() => setFilter(f)}
+                                    >
+                                        {f}
+                                    </button>
+                                ))}
+                            </div>
+                        </aside>
+
+                        {/* Product Grid */}
+                        <main className="products-grid-container">
+                            {loading ? (
+                                <Loader />
+                            ) : filteredProducts.length > 0 ? (
+                                <div className="products-grid">
+                                    {filteredProducts.map((product) => (
+                                        <ProductCard key={product._id} product={product} />
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="no-products-message">
+                                    <h3>No items available</h3>
+                                    <p>We couldn't find any {pageData.title} matching your selection.</p>
+                                </div>
+                            )}
+                        </main>
+                    </>
+                )}
             </div>
         </div>
     );
