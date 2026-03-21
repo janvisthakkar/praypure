@@ -115,4 +115,13 @@
         flex-direction: column;
         text-align: center;
     }
+    .footer-section h3 {
+        text-align: center;
+    }
+    .footer-content {
+        text-align: center;
+    }
+    .social-links {
+        justify-content: center;
+    }
 }

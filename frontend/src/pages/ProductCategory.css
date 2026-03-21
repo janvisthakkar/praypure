@@ -372,6 +372,10 @@
     .filters-sidebar { display: none; }
     .mobile-filter-select { display: block; }
 
+    .category-header-section {
+        padding: var(--spacing-lg) 0;
+        margin-bottom: var(--spacing-md);
+    }
     .category-header-section .page-title { font-size: 32px; }
 
     .coming-soon-banner { flex-direction: column; min-height: auto; }
