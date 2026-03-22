@@ -124,6 +124,11 @@ body {
     text-align: center; /* Force center alignment */
 }
 
+/* Page headers globally */
+.page-title, .page-subtitle {
+    text-align: center !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .section {
