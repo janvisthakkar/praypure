@@ -82,7 +82,7 @@
 }
 
 /* Sections */
-.form-section {
+.feedback-page .form-section {
     background: white;
     border-radius: 18px;
     padding: 28px;
@@ -90,7 +90,7 @@
     border: 1px solid rgba(212, 175, 55, 0.1);
 }
 
-.section-title {
+.feedback-page .section-title {
     font-family: var(--font-serif);
     font-size: 20px;
     color: var(--color-dark-brown);
@@ -100,7 +100,8 @@
     gap: 10px;
 }
 
-.section-icon { font-size: 22px; }
+.feedback-page .section-icon { font-size: 22px; }
+
 
 /* Fields */
 .form-row {
