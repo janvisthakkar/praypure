@@ -28,6 +28,7 @@ app.use('/api/settings', require('./routes/settings'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/qrcodes', require('./routes/qrcodes'));
 app.use('/api/feedback', require('./routes/feedback'));
+app.use('/api/impact', require('./routes/impact'));
 
 app.get('/api/test', (req, res) => res.send('Test route works'));
 app.post('/api/upload', require('./controllers/uploadController').uploadMiddleware, require('./controllers/uploadController').uploadImage);
