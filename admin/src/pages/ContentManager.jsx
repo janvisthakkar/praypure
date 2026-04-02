@@ -33,6 +33,7 @@ const ContentManager = () => {
     const [sections, setSections] = useState([]);
     const [testimonials, setTestimonials] = useState([]);
     const [instagramPosts, setInstagramPosts] = useState([]);
+    const [impactItems, setImpactItems] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [editingItem, setEditingItem] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -41,16 +42,18 @@ const ContentManager = () => {
 
     const fetchData = async () => {
         try {
-            const [heroRes, sectionRes, testimonialRes, instaRes] = await Promise.all([
+            const [heroRes, sectionRes, testimonialRes, instaRes, impactRes] = await Promise.all([
                 api.get(`/api/content/hero?includeInactive=true`),
                 api.get(`/api/content/sections?includeInactive=true`),
                 api.get(`/api/testimonials?includeInactive=true`),
-                api.get(`/api/content/instagram?includeInactive=true`)
+                api.get(`/api/content/instagram?includeInactive=true`),
+                api.get(`/api/impact?includeInactive=true`)
             ]);
             setHeroSlides(heroRes.data.data);
             setSections(sectionRes.data.data);
             setTestimonials(testimonialRes.data.data);
             setInstagramPosts(instaRes.data.data);
+            setImpactItems(impactRes.data.data);
         } catch (error) {
             toast.error('Failed to fetch content');
         }
@@ -73,6 +76,8 @@ const ContentManager = () => {
                 sectionType: 'feature', title: '', description: '', image: '', icon: '🌿', link: '', order: sections.filter(s => s.sectionType === 'features').length + 1, isActive: true
             } : activeTab === 'instagram' ? {
                 media_url: '', permalink: 'https://www.instagram.com/praypure.in/', caption: '', media_type: 'IMAGE', isActive: true, order: instagramPosts.length + 1
+            } : activeTab === 'impact' ? {
+                title: '', description: '', image: '', category: 'donation', order: impactItems.length + 1, isActive: true
             } : {
                 name: '', location: '', text: '', rating: 5, avatar: '', isActive: true
             });
@@ -86,6 +91,7 @@ const ContentManager = () => {
             const url = activeTab === 'hero' ? `/api/content/hero/${id}`
                 : ['collections', 'features'].includes(activeTab) ? `/api/content/sections/${id}`
                     : activeTab === 'instagram' ? `/api/content/instagram/${id}`
+                    : activeTab === 'impact' ? `/api/impact/${id}`
                     : `/api/testimonials/${id}`;
             await api.delete(url);
 
@@ -102,6 +108,7 @@ const ContentManager = () => {
             const url = activeTab === 'hero' ? '/api/content/hero'
                 : ['collections', 'features'].includes(activeTab) ? '/api/content/sections'
                     : activeTab === 'instagram' ? '/api/content/instagram'
+                    : activeTab === 'impact' ? '/api/impact'
                     : '/api/testimonials';
             if (editingItem) {
                 await api.put(`${url}/${editingItem._id}`, formData);
@@ -130,6 +137,7 @@ const ContentManager = () => {
         const folder = activeTab === 'hero' ? 'hero'
             : activeTab === 'testimonials' ? 'testimonials'
                 : activeTab === 'instagram' ? 'instagram'
+                : activeTab === 'impact' ? 'impact'
                 : 'content';
 
         uploadData.append('folder', folder);
@@ -175,12 +183,13 @@ const ContentManager = () => {
                 <button className={activeTab === 'collections' ? 'active' : ''} onClick={() => setActiveTab('collections')}>Collections</button>
                 <button className={activeTab === 'features' ? 'active' : ''} onClick={() => setActiveTab('features')}>Features</button>
                 <button className={activeTab === 'instagram' ? 'active' : ''} onClick={() => setActiveTab('instagram')}>Instagram</button>
+                <button className={activeTab === 'impact' ? 'active' : ''} onClick={() => setActiveTab('impact')}>Impact Gallery</button>
                 <button className={activeTab === 'testimonials' ? 'active' : ''} onClick={() => setActiveTab('testimonials')}>Testimonials</button>
             </div>
 
             <div className="tab-content">
                 <div className="action-bar">
-                    <button className="btn-add" onClick={() => handleOpenModal()}><Plus size={20} /> Add {activeTab === 'hero' ? 'Slide' : activeTab === 'collections' ? 'Collection' : activeTab === 'features' ? 'Feature' : activeTab === 'instagram' ? 'Instagram Post' : 'Testimonial'}</button>
+                    <button className="btn-add" onClick={() => handleOpenModal()}><Plus size={20} /> Add {activeTab === 'hero' ? 'Slide' : activeTab === 'collections' ? 'Collection' : activeTab === 'features' ? 'Feature' : activeTab === 'instagram' ? 'Instagram Post' : activeTab === 'impact' ? 'Impact Item' : 'Testimonial'}</button>
                 </div>
 
                 {activeTab === 'hero' ? (
@@ -241,6 +250,26 @@ const ContentManager = () => {
                                     <div className="card-actions">
                                         <button onClick={() => handleOpenModal(post)}><Edit2 size={16} /></button>
                                         <button onClick={() => handleDelete(post._id)}><Trash2 size={16} /></button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : activeTab === 'impact' ? (
+                    <div className="grid">
+                        {impactItems.map(item => (
+                            <div key={item._id} className="content-card">
+                                <img src={getImageUrl(item.image)} alt="" className="card-img" style={{height: '250px'}} />
+                                <div className="card-info">
+                                    <h4>{item.title} <span className="type-badge">{item.category}</span></h4>
+                                    <p>{item.description || 'No description'}</p>
+                                    <div className="update-info" style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                                        Order: {item.order} | Updated: {formatDate(item.updatedAt)}
+                                        {item.updatedBy && <span style={{ color: 'var(--accent)' }}> by {item.updatedBy.username}</span>}
+                                    </div>
+                                    <div className="card-actions">
+                                        <button onClick={() => handleOpenModal(item)}><Edit2 size={16} /></button>
+                                        <button onClick={() => handleDelete(item._id)}><Trash2 size={16} /></button>
                                     </div>
                                 </div>
                             </div>
@@ -386,6 +415,46 @@ const ContentManager = () => {
                                         <div className="form-group full-width">
                                             <label>Caption (Optional)</label>
                                             <textarea placeholder="e.g. Pure Dhoop Sticks..." value={formData.caption} onChange={e => setFormData({ ...formData, caption: e.target.value })} style={{ width: '100%', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border)', borderRadius: '8px', padding: '10px', height: '60px', outline: 'none' }} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Order (Display Position)</label>
+                                            <input type="number" value={formData.order} onChange={e => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })} />
+                                        </div>
+                                        <div className="form-group full-width checkbox-wrapper">
+                                            <label className="checkbox-label">
+                                                <input type="checkbox" checked={formData.isActive !== false} onChange={e => setFormData({ ...formData, isActive: e.target.checked })} />
+                                                <span>Active (Visible on Website)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                ) : activeTab === 'impact' ? (
+                                    <div className="form-grid">
+                                        <div className="form-group">
+                                            <label>Title</label>
+                                            <input type="text" placeholder="e.g. Temple Donation Drive" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} required />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Category</label>
+                                            <select value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })} style={{ width: '100%', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border)', borderRadius: '8px', padding: '10px', outline: 'none' }}>
+                                                <option value="donation">Donation</option>
+                                                <option value="community">Community</option>
+                                                <option value="temple">Temple</option>
+                                                <option value="ritual">Ritual</option>
+                                            </select>
+                                        </div>
+                                        <div className="form-group full-width">
+                                            <label>Description</label>
+                                            <textarea placeholder="Describe the impact story..." value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} style={{ width: '100%', background: 'rgba(255,255,255,0.05)', color: 'white', border: '1px solid var(--border)', borderRadius: '8px', padding: '10px', height: '80px', outline: 'none' }} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Image</label>
+                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                <input type="text" placeholder="Image URL" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} required style={{ flex: 1 }} />
+                                                <label className="btn-inline" style={{ background: 'rgba(212, 175, 55, 0.1)', color: 'var(--accent)', border: '1px solid var(--accent)', padding: '0 12px', borderRadius: '8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                                    <input type="file" hidden accept="image/*" onChange={(e) => handleFileUpload(e)} />
+                                                    <Upload size={16} /> Upload
+                                                </label>
+                                            </div>
                                         </div>
                                         <div className="form-group">
                                             <label>Order (Display Position)</label>
