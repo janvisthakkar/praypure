@@ -11,6 +11,7 @@ import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import FeedbackPage from './pages/FeedbackPage';
+import ImpactPage from './pages/ImpactPage';
 import './App.css';
 
 import { ToastContainer } from 'react-toastify';
@@ -31,6 +32,7 @@ function App() {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/feedback" element={<FeedbackPage />} />
+            <Route path="/impact" element={<ImpactPage />} />
             <Route path="/:slug" element={<CategoryPage />} />
           </Routes>
         </main>
