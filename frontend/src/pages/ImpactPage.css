@@ -20,8 +20,8 @@
 }
 
 @keyframes bounceDown {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(10px); }
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
 }
 
 @keyframes shimmerGold {
@@ -282,6 +282,9 @@
     color: var(--color-golden);
     line-height: 1;
     margin-bottom: 8px;
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+    min-width: 100px;
 }
 
 .impact-counter-number.counting {
@@ -561,7 +564,9 @@
 
 .impact-cta-links a {
     color: var(--color-light-brown);
-    text-decoration: none;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 500;
     font-size: 15px;
     transition: color 0.3s ease;
 }
