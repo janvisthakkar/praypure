@@ -229,6 +229,42 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Impact Banner */}
+            <section className="section" style={{
+                background: 'linear-gradient(135deg, var(--color-dark-brown) 0%, #2C1810 100%)',
+                padding: '48px 16px',
+                textAlign: 'center'
+            }}>
+                <div className="container" style={{ maxWidth: '600px' }}>
+                    <p style={{
+                        color: 'var(--color-golden)',
+                        fontSize: '13px',
+                        letterSpacing: '2px',
+                        textTransform: 'uppercase',
+                        marginBottom: '12px',
+                        fontWeight: 500
+                    }}>Purpose Beyond Fragrance</p>
+                    <h2 style={{
+                        fontFamily: 'var(--font-serif)',
+                        color: 'white',
+                        fontSize: '28px',
+                        marginBottom: '16px',
+                        lineHeight: 1.3
+                    }}>Every Purchase Creates Impact</h2>
+                    <p style={{
+                        color: 'rgba(255,255,255,0.7)',
+                        fontSize: '15px',
+                        lineHeight: 1.7,
+                        marginBottom: '24px'
+                    }}>A portion of every PrayPure sale goes toward temple preservation, community welfare, and spreading kindness.</p>
+                    <Link to="/impact" className="btn btn-primary" style={{
+                        background: 'var(--color-golden)',
+                        color: 'var(--color-dark-brown)',
+                        fontWeight: 600
+                    }}>See Our Impact →</Link>
+                </div>
+            </section>
+
             {/* Subscribe */}
             <section className="section subscribe">
                 <div className="container">

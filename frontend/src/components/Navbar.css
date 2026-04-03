@@ -125,7 +125,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 950px) {
     .mobile-menu-toggle {
         display: flex;
     }
