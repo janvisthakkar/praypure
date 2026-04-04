@@ -282,9 +282,23 @@
     color: var(--color-golden);
     line-height: 1;
     margin-bottom: 8px;
-    font-variant-numeric: tabular-nums;
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    width: 100%;
+}
+
+.impact-counter-value {
     display: inline-block;
-    min-width: 100px;
+    min-width: 3ch;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.impact-counter-suffix {
+    display: inline-block;
+    width: 1ch;
+    text-align: left;
 }
 
 .impact-counter-number.counting {

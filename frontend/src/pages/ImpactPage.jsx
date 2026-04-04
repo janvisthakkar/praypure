@@ -80,7 +80,7 @@ const CounterItem = ({ label, target, suffix }) => {
     return (
         <div className="impact-counter-item" ref={ref}>
             <div className="impact-counter-number">
-                {count}{suffix}
+                <span className="impact-counter-value">{count}</span><span className="impact-counter-suffix">{suffix}</span>
             </div>
             <div className="impact-counter-label">{label}</div>
         </div>
@@ -172,7 +172,6 @@ const ImpactPage = () => {
                         <h2>What Your Purchase Supports</h2>
                         <div className="impact-cause-cards">
                             <div className="impact-cause-card">
-                                <div className="cause-icon">🙏</div>
                                 <h3>Temple Preservation</h3>
                                 <p>
                                     We contribute to the upkeep and restoration of local temples,
@@ -180,7 +179,6 @@ const ImpactPage = () => {
                                 </p>
                             </div>
                             <div className="impact-cause-card">
-                                <div className="cause-icon">👨‍👩‍👧‍👦</div>
                                 <h3>Community Welfare</h3>
                                 <p>
                                     From distributing essentials to supporting education initiatives,
@@ -188,7 +186,6 @@ const ImpactPage = () => {
                                 </p>
                             </div>
                             <div className="impact-cause-card">
-                                <div className="cause-icon">🙏</div>
                                 <h3>Donation Drives</h3>
                                 <p>
                                     Regular donation drives bring food, clothing, and hope
@@ -283,7 +280,6 @@ const ImpactPage = () => {
                 <div className="container">
                     <div className="impact-reveal">
                         <div className="impact-promise-card">
-                            <div className="impact-promise-icon">🙏</div>
                             <h2>Every Purchase is a Prayer for Others</h2>
                             <p>
                                 When you light a PrayPure dhoop stick, you're not just filling
