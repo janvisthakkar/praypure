@@ -35,6 +35,7 @@ const Navbar = () => {
                         <li><Link to="/havan-cups" className={isActive('/havan-cups') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Havan Cups</Link></li>
 
                         <li><Link to="/about" className={isActive('/about') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>About Us</Link></li>
+                        <li><Link to="/impact" className={isActive('/impact') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Our Impact</Link></li>
                     </ul>
                     <div className="nav-actions">
                         <button
