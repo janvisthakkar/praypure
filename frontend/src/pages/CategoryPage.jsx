@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -120,6 +121,10 @@ const CategoryPage = () => {
 
     return (
         <div className="product-category-page">
+            <Helmet>
+                <title>{pageData.title ? `${pageData.title} | Praypure` : 'Praypure Collection'}</title>
+                <meta name="description" content={pageData.subtitle || `Explore our natural collection of ${pageData.title || ''}.`} />
+            </Helmet>
             <section className="category-header-section" style={pageData.image ? { backgroundImage: `url(${pageData.image})` } : {}}>
                 <div className="container">
                     <h1 className="page-title">{pageData.title}</h1>

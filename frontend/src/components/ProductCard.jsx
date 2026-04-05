@@ -11,11 +11,8 @@ import { FaAmazon, FaShoppingBag, FaBolt, FaMotorcycle, FaExternalLinkAlt } from
 
 // If the user wants "Logo Emojis", using exact SVGs from react-icons is best.
 import { SiFlipkart, SiAmazon } from 'react-icons/si';
-// If SiFlipkart causes issues (not in older versions), we fallback. But let's try standard imports first or stick to FA.
-// To be safe and avoid "module not found" if they only have fa/md installed, I will stick to FontAwesome for now unless I confirmed package.json has 'react-icons' (it does, ^5.5.0 which is new).
-// So 'si' should be there.
+import { Helmet } from 'react-helmet-async';
 
-// Let's use a safe mix.
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
@@ -33,8 +30,36 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="product-card">
-            <div className="product-image">
+        <>
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org/",
+                        "@type": "Product",
+                        "name": product.name,
+                        "image": product.images?.length > 0 ? product.images[0].url : product.image,
+                        "description": product.description,
+                        "brand": {
+                            "@type": "Brand",
+                            "name": "Praypure"
+                        },
+                        "offers": {
+                            "@type": "Offer",
+                            "url": window.location.href,
+                            "priceCurrency": "INR",
+                            "price": product.price,
+                            "itemCondition": "https://schema.org/NewCondition",
+                            "availability": "https://schema.org/InStock",
+                            "seller": {
+                                "@type": "Organization",
+                                "name": "Praypure"
+                            }
+                        }
+                    })}
+                </script>
+            </Helmet>
+            <div className="product-card">
+                <div className="product-image">
                 {product.images?.length > 0 || product.image ? (
                     <img
                         src={product.images?.length > 0 ? product.images[0].url : product.image}
@@ -99,6 +124,7 @@ const ProductCard = ({ product }) => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
