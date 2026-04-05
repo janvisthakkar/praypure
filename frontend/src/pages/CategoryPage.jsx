@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+
+// Module-level cache — persists across component remounts within the same session
+const pageCache = {};
 import ProductCard from '../components/ProductCard';
 import Loader from '../components/Loader';
 import './ProductCategory.css';
@@ -31,6 +34,16 @@ const CategoryPage = () => {
     }, [slug]);
 
     React.useEffect(() => {
+        // Cache hit — restore immediately without any loading flicker
+        if (pageCache[slug]) {
+            const cached = pageCache[slug];
+            setPageData(cached.pageData);
+            setProducts(cached.products);
+            setFilters(cached.filters);
+            setLoading(false);
+            return;
+        }
+
         const fetchData = async () => {
             setLoading(true);
             try {
@@ -39,22 +52,31 @@ const CategoryPage = () => {
 
                 if (currentCat) {
                     const categoryName = currentCat.name;
-                    setPageData({
+                    const newPageData = {
                         title: currentCat.title,
                         subtitle: currentCat.subtitle,
                         image: currentCat.image,
                         status: currentCat.status || 'Live'
-                    });
+                    };
+                    setPageData(newPageData);
+
+                    let newProducts = [];
+                    let newFilters = ['All'];
 
                     if ((currentCat.status || 'Live') === 'Live') {
                         const productRes = await axios.get(`${API_BASE}/api/products?category=${encodeURIComponent(categoryName)}`);
-                        setProducts(productRes.data.data || []);
+                        newProducts = productRes.data.data || [];
+                        setProducts(newProducts);
 
                         const filterRes = await axios.get(`${API_BASE}/api/products/fragrances?category=${encodeURIComponent(categoryName)}`);
                         if (filterRes.data.success) {
-                            setFilters(['All', ...filterRes.data.data]);
+                            newFilters = ['All', ...filterRes.data.data];
+                            setFilters(newFilters);
                         }
                     }
+
+                    // Store in cache for instant re-visits this session
+                    pageCache[slug] = { pageData: newPageData, products: newProducts, filters: newFilters };
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
