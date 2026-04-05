@@ -115,10 +115,8 @@ const FeedbackPage = () => {
                             <label>Which product are you reviewing?</label>
                             <select name="product" value={form.product} onChange={handleChange} required>
                                 <option value="">Select a product...</option>
-                                <option value="Incense Sticks">Incense Sticks</option>
-                                <option value="Dhoop Sticks">Dhoop Sticks</option>
-                                <option value="Dhoop Cones">Dhoop Cones</option>
-                                <option value="Havan Cups">Havan Cups</option>
+                                <option value="Premium Agarbatti">Premium Agarbatti</option>
+                                <option value="Premium Dhoop Sticks">Premium Dhoop Sticks</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
