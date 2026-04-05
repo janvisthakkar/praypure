@@ -1,0 +1,29 @@
+# Standard Search Engines (Always Allow)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Perplexity AI (Conversational AI Search - Allow)
+User-agent: PerplexityBot
+Allow: /
+
+# OpenAI / ChatGPT (General AI Citations - Allow & Evaluate)
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: GPTBot
+Allow: /
+
+# Google-Extended (Controls use for Future Gemini Training)
+# Disallowing this prevents Google from scraping content for future model training,
+# but it DOES NOT penalize you in standard Google Search or AI Overviews
+User-agent: Google-Extended
+Disallow: /
+
+# Common Crawl (Open Web Dataset - Disallow to prevent generic replication)
+User-agent: CCBot
+Disallow: /
+
+# Sitemap Location
+Sitemap: https://www.praypure.com/sitemap.xml
