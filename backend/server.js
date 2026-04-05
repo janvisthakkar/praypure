@@ -26,6 +26,14 @@ app.use(cors({
     },
     credentials: true,
 }));
+
+// Prevent CDN/browser from caching CORS responses across different origins
+app.use((req, res, next) => {
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Cache-Control', 'no-store');
+    next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
