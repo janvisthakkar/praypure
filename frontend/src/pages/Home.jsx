@@ -168,7 +168,7 @@ const Home = () => {
                             <h2 className="section-title">Latest Arrivals</h2>
                             <p className="section-subtitle">New additions to our collection</p>
                         </div>
-                        <div className="products-grid">
+                        <div className="home-products-grid">
                             {loading ? (
                                 [...Array(4)].map((_, i) => (
                                     <div className="product-card skeleton" key={i} style={{ height: '450px', borderRadius: '12px' }}></div>
