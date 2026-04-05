@@ -3,9 +3,15 @@ const Category = require('../models/Category');
 // Get all categories
 exports.getAllCategories = async (req, res) => {
     try {
-        const filter = req.query.includeInactive === 'true' 
-            ? {} 
-            : { status: { $in: ['Live', 'Coming Soon'] } };
+        const filter = req.query.includeInactive === 'true'
+            ? {}
+            : {
+                $or: [
+                    { status: { $in: ['Live', 'Coming Soon'] } },
+                    { status: { $exists: false } }  // backwards-compat: old docs without status field
+                ],
+                isActive: { $ne: false }  // still exclude explicitly deactivated
+            };
         const categories = await Category.find(filter).sort({ createdAt: 1 }).populate('updatedBy', 'username');
         res.json({ success: true, data: categories });
     } catch (error) {
