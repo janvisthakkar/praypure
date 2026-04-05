@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -25,9 +26,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="App">
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
+        <div className="App">
         <Navbar />
         <main>
           <Routes>
@@ -57,6 +59,7 @@ function App() {
         />
       </div>
     </Router>
+    </HelmetProvider>
   );
 }
 
