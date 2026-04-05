@@ -290,15 +290,11 @@
 
 .impact-counter-value {
     display: inline-block;
-    min-width: 3ch;
-    text-align: right;
     font-variant-numeric: tabular-nums;
 }
 
 .impact-counter-suffix {
     display: inline-block;
-    width: 1ch;
-    text-align: left;
 }
 
 .impact-counter-number.counting {
