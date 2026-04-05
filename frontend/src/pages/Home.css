@@ -351,3 +351,22 @@
         height: 300px;
     }
 }
+
+/* ─── Latest Arrivals Grid ─── */
+.home-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+}
+
+@media (max-width: 1024px) {
+    .home-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .home-products-grid {
+        grid-template-columns: 1fr;
+    }
+}
