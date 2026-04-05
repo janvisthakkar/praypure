@@ -1,11 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import CategoryPage from './pages/CategoryPage';
+
+// Wrapper forces full remount when slug changes, so stale state never shows
+const CategoryPageWrapper = () => {
+  const { slug } = useParams();
+  return <CategoryPage key={slug} />;
+};
 import Offers from './pages/Offers';
 import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -33,7 +39,7 @@ function App() {
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/feedback" element={<FeedbackPage />} />
             <Route path="/impact" element={<ImpactPage />} />
-            <Route path="/:slug" element={<CategoryPage />} />
+            <Route path="/:slug" element={<CategoryPageWrapper />} />
           </Routes>
         </main>
         <Footer />
