@@ -1,29 +1,31 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
-import Home from './pages/Home';
-import About from './pages/About';
-import CategoryPage from './pages/CategoryPage';
-import CollectionHub from './pages/CollectionHub';
-
-// Wrapper forces full remount when slug changes, so stale state never shows
-const CategoryPageWrapper = () => {
-  const { slug } = useParams();
-  return <CategoryPage key={slug} />;
-};
-import Offers from './pages/Offers';
-import Contact from './pages/Contact';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsConditions from './pages/TermsConditions';
-import FeedbackPage from './pages/FeedbackPage';
-import ImpactPage from './pages/ImpactPage';
 import './App.css';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const CategoryPage = lazy(() => import('./pages/CategoryPage'));
+const CollectionHub = lazy(() => import('./pages/CollectionHub'));
+const Offers = lazy(() => import('./pages/Offers'));
+const Contact = lazy(() => import('./pages/Contact'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsConditions = lazy(() => import('./pages/TermsConditions'));
+const FeedbackPage = lazy(() => import('./pages/FeedbackPage'));
+const ImpactPage = lazy(() => import('./pages/ImpactPage'));
+
+const CategoryPageWrapper = () => {
+  const { slug } = useParams();
+  return <CategoryPage key={slug} />;
+};
+
+const PageFallback = () => <div className="hero-skeleton skeleton" />;
 
 function App() {
   return (
@@ -33,19 +35,21 @@ function App() {
         <div className="App">
         <Navbar />
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/offers" element={<Offers />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsConditions />} />
-            <Route path="/feedback" element={<FeedbackPage />} />
-            <Route path="/impact" element={<ImpactPage />} />
-            <Route path="/incense" element={<CollectionHub familyKey="incense" />} />
-            <Route path="/dhoop" element={<CollectionHub familyKey="dhoop" />} />
-            <Route path="/:slug" element={<CategoryPageWrapper />} />
-          </Routes>
+          <Suspense fallback={<PageFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/offers" element={<Offers />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsConditions />} />
+              <Route path="/feedback" element={<FeedbackPage />} />
+              <Route path="/impact" element={<ImpactPage />} />
+              <Route path="/incense" element={<CollectionHub familyKey="incense" />} />
+              <Route path="/dhoop" element={<CollectionHub familyKey="dhoop" />} />
+              <Route path="/:slug" element={<CategoryPageWrapper />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
         <ToastContainer

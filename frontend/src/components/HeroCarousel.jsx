@@ -13,8 +13,8 @@ import 'swiper/css/effect-fade'; // Crucial for fade effect
 import './HeroCarousel.css';
 
 const resolveSlideImage = (src = '') => {
-  if (src.startsWith('/assets/') && src.endsWith('.webp')) {
-    return src.replace(/\.webp$/i, '.png');
+  if (src.startsWith('/assets/') && src.endsWith('.png')) {
+    return src.replace(/\.png$/i, '.webp');
   }
   return src;
 };
@@ -71,6 +71,12 @@ const HeroCarousel = () => {
                 alt={slide.title}
                 className="slide-image"
                 loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "low"}
+                onError={(event) => {
+                  if (slide.image && event.currentTarget.src !== slide.image) {
+                    event.currentTarget.src = slide.image.replace(/\.webp$/i, '.png');
+                  }
+                }}
               />
             </div>
 
