@@ -45,6 +45,11 @@ const ProductManager = () => {
         image: '',
         images: [], // Gallery
         fragrance: '',
+        fragranceLine: '',
+        sku: '',
+        gtin: '',
+        netQuantity: '',
+        catalogueLine: '',
         stock: '',
         isNew: false,
         marketplaces: [], // Dynamic marketplaces
@@ -72,7 +77,7 @@ const ProductManager = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await api.get(`/api/products?limit=100&includeInactive=true`);
+            const response = await api.get(`/api/products?limit=200&includeInactive=true`);
 
             setProducts(response.data.data);
             setLoading(false);
@@ -96,7 +101,12 @@ const ProductManager = () => {
             mrp: product.mrp,
             image: product.image,
             images: product.images || [],
-            fragrance: product.fragrance,
+            fragrance: product.fragrance || '',
+            fragranceLine: product.fragranceLine || '',
+            sku: product.sku || '',
+            gtin: product.gtin || '',
+            netQuantity: product.netQuantity || '',
+            catalogueLine: product.catalogueLine || '',
             stock: product.stock,
             isNew: product.isNew,
             marketplaces: product.marketplaces || [],
@@ -221,7 +231,8 @@ const ProductManager = () => {
 
     const filteredProducts = products.filter(p =>
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category.toLowerCase().includes(searchTerm.toLowerCase())
+        p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (p.sku || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -239,7 +250,7 @@ const ProductManager = () => {
                 <button className="btn-add" onClick={() => {
                     setEditingProduct(null);
                     setFormData({
-                        name: '', description: '', category: categories[0]?.name || '', price: '', mrp: '', image: '', images: [], fragrance: '', stock: '', isNew: false,
+                        name: '', description: '', category: categories[0]?.name || '', price: '', mrp: '', image: '', images: [], fragrance: '', fragranceLine: '', sku: '', gtin: '', netQuantity: '', catalogueLine: '', stock: '', isNew: false,
                         marketplaces: [], slug: '', isActive: true,
                         seo: { metaTitle: '', metaDescription: '', keywords: '' }
                     });
@@ -268,7 +279,7 @@ const ProductManager = () => {
                         {filteredProducts.map(product => (
                             <tr key={product._id}>
                                 <td><img src={getImageUrl(product.image)} alt="" className="thumb" /></td>
-                                <td>{product.name}</td>
+                                <td>{product.name}{product.sku && <div style={{ fontSize: '0.75rem', opacity: 0.7 }}>{product.sku}</div>}</td>
                                 <td><span className="badge">{product.category}</span></td>
                                 <td>₹{product.price} <small className="mrp">₹{product.mrp}</small></td>
                                 <td>
@@ -407,7 +418,27 @@ const ProductManager = () => {
 
                                 <div className="form-group">
                                     <label>Fragrance</label>
-                                    <input type="text" placeholder="e.g. Floral" value={formData.fragrance} onChange={e => setFormData({ ...formData, fragrance: e.target.value })} />
+                                    <input type="text" placeholder="e.g. Rose" value={formData.fragrance} onChange={e => setFormData({ ...formData, fragrance: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Fragrance line</label>
+                                    <input type="text" placeholder="e.g. Gulab · Premium" value={formData.fragranceLine} onChange={e => setFormData({ ...formData, fragranceLine: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>SKU</label>
+                                    <input type="text" placeholder="PP-PIS-GN-ROSE-100" value={formData.sku} onChange={e => setFormData({ ...formData, sku: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>GTIN</label>
+                                    <input type="text" placeholder="8906214290003" value={formData.gtin} onChange={e => setFormData({ ...formData, gtin: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Net quantity</label>
+                                    <input type="text" placeholder="100 g" value={formData.netQuantity} onChange={e => setFormData({ ...formData, netQuantity: e.target.value })} />
+                                </div>
+                                <div className="form-group">
+                                    <label>Collection</label>
+                                    <input type="text" placeholder="Premium Incense Sticks" value={formData.catalogueLine} onChange={e => setFormData({ ...formData, catalogueLine: e.target.value })} />
                                 </div>
                                 <div className="form-group">
                                     <label>Stock Quantity</label>
