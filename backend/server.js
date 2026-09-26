@@ -30,7 +30,14 @@ app.use(cors({
 // Prevent CDN/browser from caching CORS responses across different origins
 app.use((req, res, next) => {
     res.setHeader('Vary', 'Origin');
-    res.setHeader('Cache-Control', 'no-store');
+    const isPublicRead = req.method === 'GET'
+        && req.path.startsWith('/api/')
+        && !req.path.startsWith('/api/auth')
+        && req.query.includeInactive !== 'true';
+    res.setHeader(
+        'Cache-Control',
+        isPublicRead ? 'public, s-maxage=120, stale-while-revalidate=600' : 'no-store'
+    );
     next();
 });
 
