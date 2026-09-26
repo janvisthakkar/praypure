@@ -56,6 +56,7 @@ const CategoryPage = () => {
                     const newPageData = {
                         title: currentCat.title,
                         subtitle: currentCat.subtitle,
+                        description: currentCat.description || '',
                         image: currentCat.image,
                         status: currentCat.status || 'Live'
                     };
@@ -65,7 +66,7 @@ const CategoryPage = () => {
                     let newFilters = ['All'];
 
                     if ((currentCat.status || 'Live') === 'Live') {
-                        const productRes = await axios.get(`${API_BASE}/api/products?category=${encodeURIComponent(categoryName)}`);
+                        const productRes = await axios.get(`${API_BASE}/api/products?category=${encodeURIComponent(categoryName)}&limit=100`);
                         newProducts = productRes.data.data || [];
                         setProducts(newProducts);
 
@@ -129,6 +130,9 @@ const CategoryPage = () => {
                 <div className="container">
                     <h1 className="page-title">{pageData.title}</h1>
                     <p className="page-subtitle">{pageData.subtitle}</p>
+                    {pageData.description && (
+                        <p className="page-subtitle">{pageData.description}</p>
+                    )}
                 </div>
             </section>
 

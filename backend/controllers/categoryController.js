@@ -12,7 +12,7 @@ exports.getAllCategories = async (req, res) => {
                 ],
                 isActive: { $ne: false }  // still exclude explicitly deactivated
             };
-        const categories = await Category.find(filter).sort({ createdAt: 1 }).populate('updatedBy', 'username');
+        const categories = await Category.find(filter).sort({ order: 1, createdAt: 1 }).populate('updatedBy', 'username');
         res.json({ success: true, data: categories });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });

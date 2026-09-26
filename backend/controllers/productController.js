@@ -24,7 +24,7 @@ exports.getAllProducts = async (req, res) => {
         }
 
         // 2. Sorting
-        let sortOption = { createdAt: -1 }; // Default: Newest first
+        let sortOption = { sortOrder: 1, createdAt: 1 };
         if (sort) {
             switch (sort) {
                 case 'price_asc':
@@ -92,6 +92,7 @@ exports.getProduct = async (req, res) => {
 exports.createProduct = async (req, res) => {
     try {
         const productData = { ...req.body, updatedBy: req.admin.id };
+        if (!productData.sku) delete productData.sku;
         const product = await Product.create(productData);
         res.status(201).json({ success: true, data: product });
     } catch (error) {
@@ -103,6 +104,7 @@ exports.createProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
     try {
         const updateData = { ...req.body, updatedBy: req.admin.id };
+        if (!updateData.sku) delete updateData.sku;
         const product = await Product.findByIdAndUpdate(
             req.params.id,
             updateData,

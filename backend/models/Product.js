@@ -75,6 +75,37 @@ const productSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    // Catalogue 2026 identity. sku is the stable key used by the seed.
+    sku: {
+        type: String,
+        unique: true,
+        sparse: true,
+        trim: true
+    },
+    gtin: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    netQuantity: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    fragranceLine: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    catalogueLine: {
+        type: String,
+        default: '',
+        trim: true
+    },
+    sortOrder: {
+        type: Number,
+        default: 0
+    },
     stock: {
         type: Number,
         default: 0,
