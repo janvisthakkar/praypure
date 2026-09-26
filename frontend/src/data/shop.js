@@ -1,15 +1,15 @@
 export const INCENSE_LINES = [
-    { slug: 'incense-zipper-pouches', label: 'Zip Pouches', pack: '90 g' },
-    { slug: 'incense-sticks-100g', label: 'Incense Sticks', pack: '100 g' },
-    { slug: 'incense-sticks-33', label: 'Incense Sticks', pack: '33 sticks' },
-    { slug: 'incense-packs-10', label: 'Incense Packs', pack: '10 sticks' },
+    { slug: 'incense-zipper-pouches', name: 'Premium Incense Zipper Pouches', label: 'Zip Pouches', pack: '90 g' },
+    { slug: 'incense-sticks-100g', name: 'Premium Incense Sticks 100g', label: 'Incense Sticks', pack: '100 g' },
+    { slug: 'incense-sticks-33', name: 'Premium Incense Sticks 33', label: 'Incense Sticks', pack: '33 sticks' },
+    { slug: 'incense-packs-10', name: 'Premium Incense Stick Packs', label: 'Incense Packs', pack: '10 sticks' },
 ];
 
 export const DHOOP_LINES = [
-    { slug: 'dhoop-sticks-100g', label: 'Dhoop Sticks', pack: '100 g' },
-    { slug: 'dhoop-sticks-10', label: 'Dhoop Sticks', pack: '10 sticks' },
-    { slug: 'dhoop-packs-90', label: 'Dhoop Packs', pack: '90 g' },
-    { slug: 'dhoop-cups', label: 'Dhoop Cups', pack: '12 cups' },
+    { slug: 'dhoop-sticks-100g', name: 'Premium Dhoop Sticks 100g', label: 'Dhoop Sticks', pack: '100 g' },
+    { slug: 'dhoop-sticks-10', name: 'Premium Dhoop Sticks 10', label: 'Dhoop Sticks', pack: '10 sticks' },
+    { slug: 'dhoop-packs-90', name: 'Premium Dhoop Stick Packs 90g', label: 'Dhoop Packs', pack: '90 g' },
+    { slug: 'dhoop-cups', name: 'Premium Dhoop Cups', label: 'Dhoop Cups', pack: '12 cups' },
 ];
 
 export const SHOP_FAMILIES = [
