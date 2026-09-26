@@ -43,7 +43,7 @@ const Home = () => {
     const [products, setProducts] = useState([]);
     const [email, setEmail] = useState('');
     const [subscribing, setSubscribing] = useState(false);
-    const [instagramImages, setInstagramImages] = useState([]);
+    const [instagramImages, setInstagramImages] = useState(FALLBACK_IMAGES);
     const [loading, setLoading] = useState(true);
     const [collectionSections, setCollectionSections] = useState([]);
     const [featureSections, setFeatureSections] = useState([]);
