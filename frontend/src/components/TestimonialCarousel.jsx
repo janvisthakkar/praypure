@@ -5,8 +5,47 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import axios from 'axios';
 import './TestimonialCarousel.css';
 
+const DEFAULT_TESTIMONIALS = [
+    {
+        name: "Priya Sharma",
+        location: "Mumbai, Maharashtra",
+        text: "The fragrance is absolutely divine! Best incense sticks I've ever used. The quality is exceptional and the aroma lasts for hours.",
+        rating: 5
+    },
+    {
+        name: "Rajesh Kumar",
+        location: "Delhi, NCR",
+        text: "Authentic quality and fast delivery. Highly recommended! Praypure has become my go-to brand for all spiritual needs.",
+        rating: 4.5
+    },
+    {
+        name: "Anjali Patel",
+        location: "Ahmedabad, Gujarat",
+        text: "The dhoop cones are perfect for my daily prayers. The fragrance is pure and the packaging is beautiful. Love it!",
+        rating: 5
+    },
+    {
+        name: "Vikram Singh",
+        location: "Jaipur, Rajasthan",
+        text: "I love the Havan cups. They are so easy to use and smell exactly like a traditional havan. Very spiritual experience.",
+        rating: 5
+    },
+    {
+        name: "Meera Reddy",
+        location: "Hyderabad, Telangana",
+        text: "The packaging is premium and the products are natural. I can feel the difference from other brands. Will buy again.",
+        rating: 4
+    },
+    {
+        name: "Suresh Menon",
+        location: "Kochi, Kerala",
+        text: "Excellent service and genuine products. The sandalwood incense is my favorite. It brings peace to my home.",
+        rating: 5
+    }
+];
+
 const TestimonialCarousel = () => {
-    const [testimonials, setTestimonials] = useState([]);
+    const [testimonials, setTestimonials] = useState(DEFAULT_TESTIMONIALS);
 
     const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -14,47 +53,11 @@ const TestimonialCarousel = () => {
         const fetchTestimonials = async () => {
             try {
                 const response = await axios.get(`${API_BASE}/api/testimonials`);
-                setTestimonials(response.data.data || []);
+                if (response.data.data?.length) {
+                    setTestimonials(response.data.data);
+                }
             } catch (error) {
-                // Fallback to default testimonials
-                setTestimonials([
-                    {
-                        name: "Priya Sharma",
-                        location: "Mumbai, Maharashtra",
-                        text: "The fragrance is absolutely divine! Best incense sticks I've ever used. The quality is exceptional and the aroma lasts for hours.",
-                        rating: 5
-                    },
-                    {
-                        name: "Rajesh Kumar",
-                        location: "Delhi, NCR",
-                        text: "Authentic quality and fast delivery. Highly recommended! Praypure has become my go-to brand for all spiritual needs.",
-                        rating: 4.5
-                    },
-                    {
-                        name: "Anjali Patel",
-                        location: "Ahmedabad, Gujarat",
-                        text: "The dhoop cones are perfect for my daily prayers. The fragrance is pure and the packaging is beautiful. Love it!",
-                        rating: 5
-                    },
-                    {
-                        name: "Vikram Singh",
-                        location: "Jaipur, Rajasthan",
-                        text: "I love the Havan cups. They are so easy to use and smell exactly like a traditional havan. Very spiritual experience.",
-                        rating: 5
-                    },
-                    {
-                        name: "Meera Reddy",
-                        location: "Hyderabad, Telangana",
-                        text: "The packaging is premium and the products are natural. I can feel the difference from other brands. Will buy again.",
-                        rating: 4
-                    },
-                    {
-                        name: "Suresh Menon",
-                        location: "Kochi, Kerala",
-                        text: "Excellent service and genuine products. The sandalwood incense is my favorite. It brings peace to my home.",
-                        rating: 5
-                    }
-                ]);
+                setTestimonials(DEFAULT_TESTIMONIALS);
             }
         };
         fetchTestimonials();

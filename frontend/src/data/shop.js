@@ -20,7 +20,7 @@ export const SHOP_FAMILIES = [
         description: 'Zip pouches and charcoal-free incense sticks for daily prayer.',
         slugs: INCENSE_LINES.map((line) => line.slug),
         lines: INCENSE_LINES,
-        image: 'https://praypure-images.s3.us-east-1.amazonaws.com/catalogue/2026/categories/incense-zipper-pouches.webp',
+        image: '/assets/images/collection_incense_sticks_1764862333586.webp',
     },
     {
         key: 'dhoop',
@@ -29,7 +29,7 @@ export const SHOP_FAMILIES = [
         description: 'Long-lasting dhoop sticks, packs, and sambrani cups.',
         slugs: DHOOP_LINES.map((line) => line.slug),
         lines: DHOOP_LINES,
-        image: 'https://praypure-images.s3.us-east-1.amazonaws.com/catalogue/2026/categories/dhoop-sticks-100g.webp',
+        image: '/assets/images/collection_dhoop_sticks_1764862353813.webp',
     },
     {
         key: 'cups',
@@ -38,7 +38,7 @@ export const SHOP_FAMILIES = [
         description: 'Twelve-cup sambrani boxes for a lasting sacred fragrance.',
         slugs: ['dhoop-cups'],
         lines: [DHOOP_LINES[3]],
-        image: 'https://praypure-images.s3.us-east-1.amazonaws.com/catalogue/2026/categories/dhoop-cups.webp',
+        image: '/assets/images/collection_havan_cups_1764862408665.webp',
     },
     {
         key: 'soon',
@@ -47,7 +47,7 @@ export const SHOP_FAMILIES = [
         description: 'Jars, bambooless incense, and camphor for the prayer shelf.',
         slugs: ['launching-soon'],
         lines: [{ slug: 'launching-soon', label: 'Launching Soon', pack: '' }],
-        image: 'https://praypure-images.s3.us-east-1.amazonaws.com/catalogue/2026/categories/launching-soon.webp',
+        image: '/assets/images/collection_dhoop_cones_1764862379070.webp',
     },
 ];
 
