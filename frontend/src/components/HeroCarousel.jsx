@@ -10,7 +10,17 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade'; // Crucial for fade effect
 
+import { AMAZON_SHOP } from '../data/shop';
 import './HeroCarousel.css';
+
+const FALLBACK_SLIDES = [
+  {
+    title: 'Authentic Cow Dung Incense',
+    subtitle: 'Handcrafted using pure indigenous Cow Dung for spiritual purification',
+    image: '/assets/images/hero_incense_burning_1764862235560.webp',
+    amazonLink: AMAZON_SHOP,
+  },
+];
 
 const resolveSlideImage = (src = '') => {
   if (src.startsWith('/assets/') && src.endsWith('.png')) {
@@ -20,7 +30,7 @@ const resolveSlideImage = (src = '') => {
 };
 
 const HeroCarousel = () => {
-  const [slides, setSlides] = useState([]);
+  const [slides, setSlides] = useState(FALLBACK_SLIDES);
 
   const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -28,7 +38,7 @@ const HeroCarousel = () => {
     const fetchSlides = async () => {
       try {
         const response = await axios.get(`${API_BASE}/api/content/hero`);
-        if (response.data.success) {
+        if (response.data.success && response.data.data?.length) {
           setSlides(response.data.data);
         }
       } catch (error) {
@@ -50,7 +60,7 @@ const HeroCarousel = () => {
         fadeEffect={{ crossFade: true }}
         spaceBetween={0}
         slidesPerView={1}
-        loop={true}
+        loop={slides.length > 1}
         autoplay={{
           delay: 4000,
           disableOnInteraction: false,

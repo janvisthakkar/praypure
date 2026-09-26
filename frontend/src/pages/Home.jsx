@@ -109,7 +109,7 @@ const Home = () => {
         const match = collectionSections.find((section) => family.slugs.some((slug) => section.link === `/${slug}`));
         return {
             ...family,
-            image: match?.image || '',
+            image: match?.image || family.image,
         };
     });
 
