@@ -7,6 +7,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import CategoryPage from './pages/CategoryPage';
+import CollectionHub from './pages/CollectionHub';
 
 // Wrapper forces full remount when slug changes, so stale state never shows
 const CategoryPageWrapper = () => {
@@ -41,6 +42,8 @@ function App() {
             <Route path="/terms" element={<TermsConditions />} />
             <Route path="/feedback" element={<FeedbackPage />} />
             <Route path="/impact" element={<ImpactPage />} />
+            <Route path="/incense" element={<CollectionHub familyKey="incense" />} />
+            <Route path="/dhoop" element={<CollectionHub familyKey="dhoop" />} />
             <Route path="/:slug" element={<CategoryPageWrapper />} />
           </Routes>
         </main>

@@ -35,7 +35,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: 20% center;
 }
 
 /* Overlay for readability */
@@ -46,7 +46,7 @@
     width: 100%;
     height: 100%;
     /* Stronger gradient overlay for better text visibility */
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
+    background: linear-gradient(90deg, rgba(20, 12, 8, 0.55) 0%, rgba(20, 12, 8, 0.28) 48%, rgba(20, 12, 8, 0.18) 100%);
     /* Darker at bottom where text/buttons are */
     z-index: 2;
 }

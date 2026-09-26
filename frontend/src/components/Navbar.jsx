@@ -1,45 +1,91 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { INCENSE_LINES, DHOOP_LINES } from '../data/shop';
 import './Navbar.css';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [openMenu, setOpenMenu] = useState('');
     const [logoError, setLogoError] = useState(false);
     const location = useLocation();
 
     const isActive = (path) => location.pathname === path;
+    const incenseOpen = INCENSE_LINES.some((line) => isActive(`/${line.slug}`)) || isActive('/incense');
+    const dhoopOpen = DHOOP_LINES.some((line) => isActive(`/${line.slug}`)) || isActive('/dhoop');
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+        setOpenMenu('');
+    };
+
+    const toggleSubmenu = (key) => {
+        setOpenMenu((current) => (current === key ? '' : key));
+    };
 
     return (
         <nav className="navbar">
-            <div className={`nav-overlay ${isMenuOpen ? 'active' : ''}`} onClick={() => setIsMenuOpen(false)}></div>
+            <div className={`nav-overlay ${isMenuOpen ? 'active' : ''}`} onClick={closeMenu}></div>
             <div className="container">
                 <div className="nav-wrapper">
-                    <Link to="/" className="logo">
+                    <Link to="/" className="logo" onClick={closeMenu}>
                         {!logoError ? (
                             <img
                                 src="/assets/logo.png"
-                                alt="Praypure Logo"
+                                alt="Praypure"
                                 className="logo-img"
                                 onError={() => setLogoError(true)}
                             />
-                        ) : null}
-                        {logoError && (
+                        ) : (
                             <span className="logo-text">PRAYPURE</span>
                         )}
                     </Link>
                     <ul className={`nav-menu ${isMenuOpen ? 'mobile-active' : ''}`}>
-                        <li><Link to="/" className={isActive('/') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Home</Link></li>
-                        <li><Link to="/incense-zipper-pouches" className={isActive('/incense-zipper-pouches') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Zip Pouches</Link></li>
-                        <li><Link to="/incense-sticks-100g" className={isActive('/incense-sticks-100g') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Incense 100g</Link></li>
-                        <li><Link to="/incense-sticks-33" className={isActive('/incense-sticks-33') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Incense 33</Link></li>
-                        <li><Link to="/incense-packs-10" className={isActive('/incense-packs-10') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Incense 10</Link></li>
-                        <li><Link to="/dhoop-sticks-100g" className={isActive('/dhoop-sticks-100g') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop 100g</Link></li>
-                        <li><Link to="/dhoop-sticks-10" className={isActive('/dhoop-sticks-10') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop 10</Link></li>
-                        <li><Link to="/dhoop-packs-90" className={isActive('/dhoop-packs-90') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop 90g</Link></li>
-                        <li><Link to="/dhoop-cups" className={isActive('/dhoop-cups') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop Cups</Link></li>
-                        <li><Link to="/launching-soon" className={isActive('/launching-soon') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Coming Soon</Link></li>
-                        <li><Link to="/about" className={isActive('/about') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>About Us</Link></li>
-                        <li><Link to="/impact" className={isActive('/impact') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Our Impact</Link></li>
+                        <li>
+                            <Link to="/" className={isActive('/') ? 'active' : ''} onClick={closeMenu}>Home</Link>
+                        </li>
+                        <li className={`has-submenu ${openMenu === 'incense' ? 'open' : ''}`}>
+                            <button
+                                type="button"
+                                className={`submenu-toggle ${incenseOpen ? 'active' : ''}`}
+                                onClick={() => toggleSubmenu('incense')}
+                                aria-expanded={openMenu === 'incense'}
+                            >
+                                Shop Incense
+                            </button>
+                            <ul className="submenu">
+                                <li><Link to="/incense" onClick={closeMenu}>All incense</Link></li>
+                                {INCENSE_LINES.map((line) => (
+                                    <li key={line.slug}>
+                                        <Link to={`/${line.slug}`} className={isActive(`/${line.slug}`) ? 'active' : ''} onClick={closeMenu}>
+                                            {line.label} · {line.pack}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                        <li className={`has-submenu ${openMenu === 'dhoop' ? 'open' : ''}`}>
+                            <button
+                                type="button"
+                                className={`submenu-toggle ${dhoopOpen ? 'active' : ''}`}
+                                onClick={() => toggleSubmenu('dhoop')}
+                                aria-expanded={openMenu === 'dhoop'}
+                            >
+                                Shop Dhoop
+                            </button>
+                            <ul className="submenu">
+                                <li><Link to="/dhoop" onClick={closeMenu}>All dhoop</Link></li>
+                                {DHOOP_LINES.map((line) => (
+                                    <li key={line.slug}>
+                                        <Link to={`/${line.slug}`} className={isActive(`/${line.slug}`) ? 'active' : ''} onClick={closeMenu}>
+                                            {line.label} · {line.pack}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                        <li><Link to="/launching-soon" className={isActive('/launching-soon') ? 'active' : ''} onClick={closeMenu}>Coming Soon</Link></li>
+                        <li><Link to="/about" className={isActive('/about') ? 'active' : ''} onClick={closeMenu}>About</Link></li>
+                        <li><Link to="/impact" className={isActive('/impact') ? 'active' : ''} onClick={closeMenu}>Our Impact</Link></li>
                     </ul>
                     <div className="nav-actions">
                         <button

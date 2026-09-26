@@ -79,7 +79,16 @@ const Offers = () => {
         setResult(null);
     };
 
-    if (offers.length === 0) return <div className="loading">Loading Offers...</div>;
+    if (offers.length === 0) {
+        return (
+            <div className="offers-page">
+                <div className="container">
+                    <h1 className="page-title">Offers</h1>
+                    <p className="page-subtitle">There is no live offer this week. Browse the collection while we prepare the next one.</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="offers-page">

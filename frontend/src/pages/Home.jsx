@@ -5,6 +5,7 @@ import HeroCarousel from '../components/HeroCarousel';
 import TestimonialCarousel from '../components/TestimonialCarousel';
 import ProductCard from '../components/ProductCard';
 import { Link } from 'react-router-dom';
+import { SHOP_FAMILIES } from '../data/shop';
 import './Home.css';
 
 const FALLBACK_IMAGES = [
@@ -100,44 +101,49 @@ const Home = () => {
         }
     };
 
-    const latestProducts = products.filter(p => p.isNew).slice(0, 4);
+    const latestProducts = products
+        .filter((p) => p.sku && p.isNew && (p.image || p.images?.length))
+        .slice(0, 4);
+
+    const familyCards = SHOP_FAMILIES.map((family) => {
+        const match = collectionSections.find((section) => family.slugs.some((slug) => section.link === `/${slug}`));
+        return {
+            ...family,
+            image: match?.image || '',
+        };
+    });
 
     return (
         <div className="home">
             <HeroCarousel />
 
             {/* Our Collection */}
-            {collectionSections.length > 0 && (
-                <section className="section our-collection">
-                    <div className="container">
-                        <div className="section-header">
-                            <h2 className="section-title">Our Collection</h2>
-                            <p className="section-subtitle">Discover our range of premium spiritual products</p>
-                        </div>
-                        <div className="collection-grid">
-                            {loading ? (
-                                [...Array(4)].map((_, i) => (
-                                    <div className="collection-card skeleton" key={i} style={{ height: '400px', borderRadius: '12px' }}></div>
-                                ))
-                            ) : (
-                                collectionSections.map((section) => (
-                                    <div className="collection-card" key={section._id}>
-                                        <div className="card-image">
-                                            <img src={section.image} alt={section.title} className="collection-img" loading="lazy" />
-                                        </div>
-                                        <div className="card-content">
-                                            <h3>{section.title}</h3>
-                                            <p>{section.description}</p>
-                                            <Link to={section.link} className="btn btn-secondary">Explore</Link>
-                                        </div>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-
+            <section className="section our-collection">
+                <div className="container">
+                    <div className="section-header">
+                        <h2 className="section-title">Shop by collection</h2>
+                        <p className="section-subtitle">Choose incense, dhoop, or the new cup boxes. Pack sizes live one click inside.</p>
                     </div>
-                </section>
-            )}
+                    <div className="collection-grid">
+                        {familyCards.map((family) => (
+                            <Link to={family.href} className="collection-card" key={family.key}>
+                                <div className="card-image">
+                                    {family.image ? (
+                                        <img src={family.image} alt={family.title} className="collection-img" loading="lazy" />
+                                    ) : (
+                                        <div className="collection-placeholder">{family.title}</div>
+                                    )}
+                                </div>
+                                <div className="card-content">
+                                    <h3>{family.title}</h3>
+                                    <p>{family.description}</p>
+                                    <span className="btn btn-secondary">Explore</span>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             {/* Why Us */}
             {featureSections.length > 0 && (

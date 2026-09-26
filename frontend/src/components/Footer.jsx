@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn, FaWhatsapp, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
+import { FaInstagram, FaWhatsapp, FaEnvelope, FaPhoneAlt } from 'react-icons/fa';
+import {
+    AMAZON_SHOP,
+    FLIPKART_SHOP,
+    CONTACT_EMAIL,
+    CONTACT_PHONE,
+    CONTACT_PHONE_TEL,
+    CONTACT_WHATSAPP,
+} from '../data/shop';
 import './Footer.css';
 
 const Footer = () => {
@@ -10,31 +18,26 @@ const Footer = () => {
                 <div className="footer-content">
                     <div className="footer-section">
                         <div className="footer-logo">
-                            <img src="/assets/logo-white.png" alt="Praypure Logo" className="logo-img"
+                            <img src="/assets/logo-white.png" alt="Praypure" className="logo-img"
                                 onError={(e) => e.target.style.display = 'none'} />
                         </div>
-                        <p className="footer-desc">Your trusted partner in spiritual wellness and authentic incense products.</p>
+                        <p className="footer-desc">Charcoal-free incense and dhoop, made with sacred cow dung for daily prayer.</p>
                     </div>
                     <div className="footer-section">
-                        <h3>Quick Links</h3>
+                        <h3>Visit</h3>
                         <ul className="footer-links">
                             <li><Link to="/">Home</Link></li>
-                            <li><Link to="/about">About Us</Link></li>
+                            <li><Link to="/about">About</Link></li>
                             <li><Link to="/impact">Our Impact</Link></li>
-                            <li><Link to="/offers">Offers</Link></li>
-                            <li><Link to="/contact">Contact Us</Link></li>
+                            <li><Link to="/contact">Contact</Link></li>
+                            <li><Link to="/feedback">Feedback</Link></li>
                         </ul>
                     </div>
                     <div className="footer-section">
-                        <h3>Products</h3>
+                        <h3>Shop</h3>
                         <ul className="footer-links">
-                            <li><Link to="/incense-zipper-pouches">Zip Pouches</Link></li>
-                            <li><Link to="/incense-sticks-100g">Incense 100g</Link></li>
-                            <li><Link to="/incense-sticks-33">Incense 33</Link></li>
-                            <li><Link to="/incense-packs-10">Incense 10</Link></li>
-                            <li><Link to="/dhoop-sticks-100g">Dhoop 100g</Link></li>
-                            <li><Link to="/dhoop-sticks-10">Dhoop 10</Link></li>
-                            <li><Link to="/dhoop-packs-90">Dhoop 90g</Link></li>
+                            <li><Link to="/incense">Incense</Link></li>
+                            <li><Link to="/dhoop">Dhoop</Link></li>
                             <li><Link to="/dhoop-cups">Dhoop Cups</Link></li>
                             <li><Link to="/launching-soon">Coming Soon</Link></li>
                         </ul>
@@ -42,34 +45,30 @@ const Footer = () => {
                     <div className="footer-section">
                         <h3>Shop Online</h3>
                         <ul className="footer-links">
-                            <li><a href="https://www.amazon.in/s?k=praypure" target="_blank" rel="noopener noreferrer">Shop on Amazon</a></li>
-                            <li><a href="https://www.flipkart.com/search?q=praypure" target="_blank" rel="noopener noreferrer">Shop on Flipkart</a></li>
+                            <li><a href={AMAZON_SHOP} target="_blank" rel="noopener noreferrer">Amazon</a></li>
+                            <li><a href={FLIPKART_SHOP} target="_blank" rel="noopener noreferrer">Flipkart</a></li>
                         </ul>
-                        <h3 style={{ marginTop: '24px' }}>Connect With Us</h3>
+                        <h3 style={{ marginTop: '24px' }}>Talk to us</h3>
                         <div className="social-links">
-                            <a href="https://www.facebook.com/praypure" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Facebook"><FaFacebookF /></a>
                             <a href="https://www.instagram.com/praypure.in" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram"><FaInstagram /></a>
-                            <a href="https://twitter.com/praypure" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Twitter"><FaTwitter /></a>
-                            <a href="https://www.linkedin.com/company/praypure" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn"><FaLinkedinIn /></a>
-                            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp"><FaWhatsapp /></a>
+                            <a href={CONTACT_WHATSAPP} target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp"><FaWhatsapp /></a>
                         </div>
                         <div className="contact-info">
-                            <p><a href="mailto:support@praypure.com"><FaEnvelope style={{ marginRight: '8px' }} /> support@praypure.com</a></p>
-                            <p><a href="tel:+919726012936"><FaPhoneAlt style={{ marginRight: '8px' }} /> +91 97260 12936</a></p>
+                            <p><a href={`mailto:${CONTACT_EMAIL}`}><FaEnvelope style={{ marginRight: '8px' }} /> {CONTACT_EMAIL}</a></p>
+                            <p><a href={`tel:${CONTACT_PHONE_TEL}`}><FaPhoneAlt style={{ marginRight: '8px' }} /> {CONTACT_PHONE}</a></p>
                         </div>
                     </div>
                 </div>
                 <div className="footer-bottom">
-                    <p>&copy; 2024 Praypure. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Praypure. All rights reserved.</p>
                     <div className="footer-legal">
                         <Link to="/privacy">Privacy Policy</Link>
                         <Link to="/terms">Terms & Conditions</Link>
                     </div>
                 </div>
             </div>
-        </footer >
+        </footer>
     );
 };
 
 export default Footer;
-

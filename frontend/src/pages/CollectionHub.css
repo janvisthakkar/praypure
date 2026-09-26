@@ -1,0 +1,79 @@
+.hub-header {
+    background: linear-gradient(135deg, #3E2723 0%, #5D4037 100%);
+    color: white;
+    padding: 64px 0 48px;
+    text-align: center;
+}
+
+.hub-kicker {
+    color: var(--color-golden);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.hub-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hub-header p {
+    max-width: 640px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.hub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.hub-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 8px 24px rgba(62, 39, 35, 0.08);
+}
+
+.hub-image {
+    height: 240px;
+    background: #F7F1E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.hub-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.hub-copy {
+    padding: 20px;
+}
+
+.hub-copy h2 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    color: var(--color-dark-brown);
+    margin-bottom: 6px;
+}
+
+.hub-copy p {
+    color: var(--color-light-brown);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.hub-copy span {
+    color: var(--color-golden);
+    font-weight: 600;
+    font-size: 14px;
+}

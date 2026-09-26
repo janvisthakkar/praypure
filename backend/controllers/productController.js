@@ -14,6 +14,7 @@ exports.getAllProducts = async (req, res) => {
         // By default, only show active products unless specified
         if (req.query.includeInactive !== 'true') {
             filter.isActive = true;
+            filter.sku = { $exists: true, $nin: [null, ''] };
         }
 
         // Price Range Filter
@@ -146,6 +147,7 @@ exports.getFragrances = async (req, res) => {
         const fragrances = await Product.distinct('fragrance', {
             ...filter,
             isActive: true,
+            sku: { $exists: true, $nin: [null, ''] },
             fragrance: { $ne: null, $ne: '' }
         });
 
