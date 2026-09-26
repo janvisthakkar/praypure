@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useSettings } from '../context/SettingsContext';
 import { AMAZON_SHOP, FLIPKART_SHOP } from '../data/shop';
 import './ProductCard.css';
 
@@ -10,8 +9,7 @@ const FALLBACK_SHOPS = [
 ];
 
 const ProductCard = ({ product }) => {
-    const { settings } = useSettings();
-    const showPrice = !settings?.hidePrices;
+    const showPrice = true;
     const image = product.images?.find((img) => img.url)?.url || product.image;
     const shopLinks = (product.marketplaces || [])
         .filter((mp) => mp.showButton !== false && mp.url)

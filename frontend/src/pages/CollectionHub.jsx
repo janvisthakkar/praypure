@@ -57,7 +57,7 @@ const CollectionHub = ({ familyKey }) => {
                             </div>
                             <div className="hub-copy">
                                 <h2>{tile.label}</h2>
-                                <p>{tile.pack ? `${tile.pack} · ${tile.subtitle}` : tile.subtitle}</p>
+                                <p>{tile.pack || tile.subtitle}</p>
                                 <span>View packs</span>
                             </div>
                         </Link>
