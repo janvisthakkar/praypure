@@ -1,9 +1,15 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import './About.css';
 
 const About = () => {
     return (
         <div className="about-page">
+            <Helmet>
+                <title>About | Praypure</title>
+                <meta name="description" content="Praypure makes charcoal-free incense and dhoop with sacred cow dung." />
+            </Helmet>
             <section className="about-banner" style={{ backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('/assets/images/about_banner_gau_maiya.png')" }}>
                 <div className="container">
                     <h1 className="page-title">The Purity of Gau Maiya</h1>
@@ -96,6 +102,17 @@ const About = () => {
                             <h3>Excellence</h3>
                             <p>From sourcing the finest herbs to delivering a premium experience, we strive for perfection</p>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="section" style={{ textAlign: 'center' }}>
+                <div className="container">
+                    <h2 className="section-title">Light a prayer at home</h2>
+                    <p className="section-subtitle">Start with incense or dhoop from the 2026 collection.</p>
+                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <Link to="/incense" className="btn btn-primary">Shop incense</Link>
+                        <Link to="/dhoop" className="btn btn-secondary">Shop dhoop</Link>
                     </div>
                 </div>
             </section>

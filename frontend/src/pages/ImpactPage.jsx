@@ -308,14 +308,9 @@ const ImpactPage = () => {
                             Continue your spiritual practice, and let your prayers
                             reach further than ever before.
                         </p>
-                        <a
-                            href="https://www.amazon.in/s?k=praypure"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-primary"
-                        >
-                            Shop with Purpose
-                        </a>
+                        <Link to="/incense" className="btn btn-primary">
+                            Explore the collection
+                        </Link>
                         <div className="impact-cta-links">
                             <Link to="/about">Learn About Us</Link>
                             <Link to="/contact">Get In Touch</Link>

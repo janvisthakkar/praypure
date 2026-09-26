@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
 
@@ -74,14 +75,10 @@ const HeroCarousel = () => {
                 <p className="banner-subtitle">{slide.subtitle}</p>
 
                 <div className="banner-actions">
+                  <Link to="/incense" className="btn btn-amazon">Explore the collection</Link>
                   {slide.amazonLink && (
-                    <a href={slide.amazonLink} target="_blank" rel="noopener noreferrer" className="btn btn-amazon">
+                    <a href={slide.amazonLink} target="_blank" rel="noopener noreferrer" className="btn btn-flipkart">
                       Shop on Amazon
-                    </a>
-                  )}
-                  {slide.flipkartLink && (
-                    <a href={slide.flipkartLink} target="_blank" rel="noopener noreferrer" className="btn btn-flipkart">
-                      Shop on Flipkart
                     </a>
                   )}
                 </div>

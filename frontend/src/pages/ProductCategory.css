@@ -347,6 +347,14 @@
     font-size: 15px;
 }
 
+.coming-soon-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+    justify-items: center;
+}
+
 .notify-check {
     width: 26px;
     height: 26px;

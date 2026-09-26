@@ -65,7 +65,7 @@ const CategoryPage = () => {
                     let newProducts = [];
                     let newFilters = ['All'];
 
-                    if ((currentCat.status || 'Live') === 'Live') {
+                    if ((currentCat.status || 'Live') === 'Live' || slug === 'launching-soon') {
                         const productRes = await axios.get(`${API_BASE}/api/products?category=${encodeURIComponent(categoryName)}&limit=100`);
                         newProducts = productRes.data.data || [];
                         setProducts(newProducts);
@@ -153,16 +153,14 @@ const CategoryPage = () => {
                                 </div>
                             </div>
 
-                            {/* Right content */}
                             <div className="coming-soon-content">
                                 <span className="coming-soon-badge">
                                     <span className="badge-dot"></span>
                                     Launching Soon
                                 </span>
-                                <h2>Something Sacred is on its Way</h2>
+                                <h2>Next on the prayer shelf</h2>
                                 <p>
-                                    Our artisans are carefully crafting the finest <strong>{pageData.title}</strong>
-                                    &nbsp;— blending ancient traditions with the purest ingredients. Each piece is made with love and intention.
+                                    Dhoop stick jars, cone jars, bambooless incense, and camphor — charcoal-free formats we are preparing now.
                                 </p>
 
                                 <div className="stay-tuned">
@@ -202,6 +200,13 @@ const CategoryPage = () => {
                                 )}
                             </div>
                         </div>
+                        {products.length > 0 && (
+                            <div className="coming-soon-preview">
+                                {products.map((product) => (
+                                    <ProductCard key={product._id} product={product} />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <>

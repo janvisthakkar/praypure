@@ -1,22 +1,27 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_TEL, CONTACT_WHATSAPP } from '../data/shop';
 
 const Contact = () => {
     return (
         <section className="section contact-page">
+            <Helmet>
+                <title>Contact | Praypure</title>
+                <meta name="description" content="Write to Praypure for product, trade, or prayer-shelf questions." />
+            </Helmet>
             <div className="container">
                 <div className="section-header">
-                    <h2 className="section-title">Contact Us</h2>
-                    <p className="section-subtitle">We'd love to hear from you</p>
+                    <h2 className="section-title">Contact</h2>
+                    <p className="section-subtitle">For shoppers, temples, and trade partners</p>
                 </div>
-                <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-                    <div style={{ marginBottom: '32px' }}>
-                        <h3>Reach Out</h3>
-                        <p>Have questions about our products or need assistance? Our team is here to help.</p>
-                    </div>
+                <div style={{ maxWidth: '560px', margin: '0 auto', textAlign: 'center' }}>
+                    <p style={{ marginBottom: '28px', color: 'var(--color-light-brown)' }}>
+                        Ask about a fragrance, a pack size, or a bulk order. We reply on WhatsApp and email.
+                    </p>
                     <div className="contact-details" style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '18px' }}>
-                        <p><strong>Email:</strong> <a href="mailto:support@praypure.com" style={{ color: 'inherit', textDecoration: 'none' }}>support@praypure.com</a></p>
-                        <p><strong>Phone:</strong> <a href="tel:+919726012936" style={{ color: 'inherit', textDecoration: 'none' }}>+91 97260 12936</a></p>
-                        <p><strong>Address:</strong> 123 Spiritual Way, Serenity City, India</p>
+                        <p><strong>WhatsApp</strong><br /><a href={CONTACT_WHATSAPP} style={{ color: 'inherit' }}>{CONTACT_PHONE}</a></p>
+                        <p><strong>Phone</strong><br /><a href={`tel:${CONTACT_PHONE_TEL}`} style={{ color: 'inherit' }}>{CONTACT_PHONE}</a></p>
+                        <p><strong>Email</strong><br /><a href={`mailto:${CONTACT_EMAIL}`} style={{ color: 'inherit' }}>{CONTACT_EMAIL}</a></p>
                     </div>
                 </div>
             </div>
