@@ -12,6 +12,13 @@ import 'swiper/css/effect-fade'; // Crucial for fade effect
 
 import './HeroCarousel.css';
 
+const resolveSlideImage = (src = '') => {
+  if (src.startsWith('/assets/') && src.endsWith('.webp')) {
+    return src.replace(/\.webp$/i, '.png');
+  }
+  return src;
+};
+
 const HeroCarousel = () => {
   const [slides, setSlides] = useState([]);
 
@@ -60,7 +67,7 @@ const HeroCarousel = () => {
             <div className="banner-image">
               {/* Use standard img tag, managed by CSS for object-fit */}
               <img
-                src={slide.image}
+                src={resolveSlideImage(slide.image)}
                 alt={slide.title}
                 className="slide-image"
                 loading={index === 0 ? "eager" : "lazy"}

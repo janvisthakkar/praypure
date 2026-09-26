@@ -36,11 +36,10 @@
 .collection-img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    background: #F7F1E6;
+    object-fit: cover;
+    object-position: center;
     transition: transform 0.5s ease;
     display: block;
-    padding: 16px;
 }
 
 .collection-placeholder {
