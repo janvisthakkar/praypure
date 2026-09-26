@@ -6,6 +6,7 @@ import axios from 'axios';
 // Module-level cache — persists across component remounts within the same session
 const pageCache = {};
 import ProductCard from '../components/ProductCard';
+import { CATEGORY_SEO, SITE } from '../data/seo';
 import Loader from '../components/Loader';
 import './ProductCategory.css';
 
@@ -119,17 +120,21 @@ const CategoryPage = () => {
     const filteredProducts = filter === 'All'
         ? products
         : products.filter(p => p.fragrance === filter);
+    const seo = CATEGORY_SEO[slug] || {};
+    const pageTitle = seo.title || (pageData.title ? `${pageData.title} | Praypure` : 'Praypure Collection');
+    const pageDescription = seo.description || pageData.subtitle || `Praypure ${pageData.title || 'agarbatti and dhoop'}.`;
 
     return (
         <div className="product-category-page">
             <Helmet>
-                <title>{pageData.title ? `${pageData.title} | Praypure` : 'Praypure Collection'}</title>
-                <meta name="description" content={pageData.subtitle || `Explore our natural collection of ${pageData.title || ''}.`} />
+                <title>{pageTitle}</title>
+                <meta name="description" content={pageDescription} />
+                <link rel="canonical" href={`${SITE}/${slug}`} />
             </Helmet>
             <section className="category-header-section" style={pageData.image ? { backgroundImage: `url(${pageData.image})` } : {}}>
                 <div className="container">
-                    <h1 className="page-title">{pageData.title}</h1>
-                    <p className="page-subtitle">{pageData.subtitle}</p>
+                    <h1 className="page-title">{pageData.title || seo.title}</h1>
+                    <p className="page-subtitle">{seo.blurb || pageData.subtitle}</p>
                     {pageData.description && (
                         <p className="page-subtitle">{pageData.description}</p>
                     )}

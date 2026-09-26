@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import HeroCarousel from '../components/HeroCarousel';
@@ -6,6 +7,7 @@ import TestimonialCarousel from '../components/TestimonialCarousel';
 import ProductCard from '../components/ProductCard';
 import { Link } from 'react-router-dom';
 import { SHOP_FAMILIES } from '../data/shop';
+import { HOME_SEO, HOME_FAQS } from '../data/seo';
 import './Home.css';
 
 const FALLBACK_IMAGES = [
@@ -115,6 +117,22 @@ const Home = () => {
 
     return (
         <div className="home">
+            <Helmet>
+                <title>{HOME_SEO.title}</title>
+                <meta name="description" content={HOME_SEO.description} />
+                <link rel="canonical" href="https://www.praypure.com/" />
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'FAQPage',
+                        mainEntity: HOME_FAQS.map((item) => ({
+                            '@type': 'Question',
+                            name: item.question,
+                            acceptedAnswer: { '@type': 'Answer', text: item.answer },
+                        })),
+                    })}
+                </script>
+            </Helmet>
             <HeroCarousel />
 
             {/* Our Collection */}
@@ -122,14 +140,14 @@ const Home = () => {
                 <div className="container">
                     <div className="section-header">
                         <h2 className="section-title">Shop by collection</h2>
-                        <p className="section-subtitle">Choose incense, dhoop, or the new cup boxes. Pack sizes live one click inside.</p>
+                        <p className="section-subtitle">Praypure agarbatti and dhoop sticks are made with gomay, pure desi cow dung, and no charcoal. Choose incense sticks, dhup, or cup boxes.</p>
                     </div>
                     <div className="collection-grid">
                         {familyCards.map((family) => (
                             <Link to={family.href} className="collection-card" key={family.key}>
                                 <div className="card-image">
                                     {family.image ? (
-                                        <img src={family.image} alt={family.title} className="collection-img" loading="lazy" />
+                                        <img src={family.image} alt={`${family.seoTitle || family.title} by Praypure`} className="collection-img" loading="lazy" />
                                     ) : (
                                         <div className="collection-placeholder">{family.title}</div>
                                     )}
@@ -189,6 +207,23 @@ const Home = () => {
                     </div>
                 </section>
             )}
+
+            <section className="section home-faq">
+                <div className="container">
+                    <div className="section-header">
+                        <h2 className="section-title">Gomay agarbatti, explained</h2>
+                        <p className="section-subtitle">The incense people also search for as agarbatti, dhup, and cow dung sticks.</p>
+                    </div>
+                    <div className="faq-list">
+                        {HOME_FAQS.map((item) => (
+                            <details key={item.question} className="faq-item">
+                                <summary>{item.question}</summary>
+                                <p>{item.answer}</p>
+                            </details>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             {/* Testimonials */}
             <TestimonialCarousel />

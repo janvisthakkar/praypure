@@ -50,10 +50,10 @@ const Navbar = () => {
                                 onClick={() => toggleSubmenu('incense')}
                                 aria-expanded={openMenu === 'incense'}
                             >
-                                Shop Incense
+                                Agarbatti
                             </button>
                             <ul className="submenu">
-                                <li><Link to="/incense" onClick={closeMenu}>All incense</Link></li>
+                                <li><Link to="/incense" onClick={closeMenu}>All agarbatti</Link></li>
                                 {INCENSE_LINES.map((line) => (
                                     <li key={line.slug}>
                                         <Link to={`/${line.slug}`} className={isActive(`/${line.slug}`) ? 'active' : ''} onClick={closeMenu}>
@@ -70,10 +70,10 @@ const Navbar = () => {
                                 onClick={() => toggleSubmenu('dhoop')}
                                 aria-expanded={openMenu === 'dhoop'}
                             >
-                                Shop Dhoop
+                                Dhoop sticks
                             </button>
                             <ul className="submenu">
-                                <li><Link to="/dhoop" onClick={closeMenu}>All dhoop</Link></li>
+                                <li><Link to="/dhoop" onClick={closeMenu}>All dhoop sticks</Link></li>
                                 {DHOOP_LINES.map((line) => (
                                     <li key={line.slug}>
                                         <Link to={`/${line.slug}`} className={isActive(`/${line.slug}`) ? 'active' : ''} onClick={closeMenu}>
