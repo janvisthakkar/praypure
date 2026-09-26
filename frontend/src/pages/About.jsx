@@ -7,8 +7,9 @@ const About = () => {
     return (
         <div className="about-page">
             <Helmet>
-                <title>About | Praypure</title>
-                <meta name="description" content="Praypure makes charcoal-free incense and dhoop with sacred cow dung." />
+                <title>About Praypure | Gomay Agarbatti</title>
+                <meta name="description" content="Praypure makes charcoal-free gomay agarbatti and dhoop sticks with desi cow dung for daily puja." />
+                <link rel="canonical" href="https://www.praypure.com/about" />
             </Helmet>
             <section className="about-banner" style={{ backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url('/assets/images/about_banner_gau_maiya.png')" }}>
                 <div className="container">

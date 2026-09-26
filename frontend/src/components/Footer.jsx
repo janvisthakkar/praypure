@@ -21,7 +21,7 @@ const Footer = () => {
                             <img src="/assets/logo-white.png" alt="Praypure" className="logo-img"
                                 onError={(e) => e.target.style.display = 'none'} />
                         </div>
-                        <p className="footer-desc">Charcoal-free incense and dhoop, made with sacred cow dung for daily prayer.</p>
+                        <p className="footer-desc">Charcoal-free gomay agarbatti and dhoop sticks, made with desi cow dung for daily puja.</p>
                     </div>
                     <div className="footer-section">
                         <h3>Visit</h3>
@@ -36,8 +36,8 @@ const Footer = () => {
                     <div className="footer-section">
                         <h3>Shop</h3>
                         <ul className="footer-links">
-                            <li><Link to="/incense">Incense</Link></li>
-                            <li><Link to="/dhoop">Dhoop</Link></li>
+                            <li><Link to="/incense">Agarbatti</Link></li>
+                            <li><Link to="/dhoop">Dhoop sticks</Link></li>
                             <li><Link to="/dhoop-cups">Dhoop Cups</Link></li>
                             <li><Link to="/launching-soon">Coming Soon</Link></li>
                         </ul>

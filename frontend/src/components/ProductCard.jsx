@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { AMAZON_SHOP, FLIPKART_SHOP } from '../data/shop';
 import './ProductCard.css';
 
@@ -23,36 +22,18 @@ const ProductCard = ({ product }) => {
     const price = Number(product.price) || 0;
     const mrp = Number(product.mrp) || price;
     const title = displayName(product);
+    const kind = /cup/i.test(product.category || '')
+        ? 'dhoop cup'
+        : /dhoop/i.test(product.category || '')
+            ? 'dhoop stick'
+            : 'agarbatti';
 
     return (
         <>
-            <Helmet>
-                <script type="application/ld+json">
-                    {JSON.stringify({
-                        "@context": "https://schema.org/",
-                        "@type": "Product",
-                        "name": product.name,
-                        "sku": product.sku || undefined,
-                        "gtin13": product.gtin || undefined,
-                        "image": image,
-                        "description": product.description,
-                        "brand": { "@type": "Brand", "name": "Praypure" },
-                        "offers": {
-                            "@type": "Offer",
-                            "url": typeof window !== 'undefined' ? window.location.href : 'https://www.praypure.com',
-                            "priceCurrency": "INR",
-                            "price": mrp || price,
-                            "itemCondition": "https://schema.org/NewCondition",
-                            "availability": "https://schema.org/InStock",
-                            "seller": { "@type": "Organization", "name": "Praypure" }
-                        }
-                    })}
-                </script>
-            </Helmet>
             <article className="product-card">
                 <div className="product-image">
                     {image ? (
-                        <img src={image} alt={product.name} loading="lazy" />
+                        <img src={image} alt={`${title} Praypure ${kind}${product.netQuantity ? `, ${product.netQuantity}` : ''}`} loading="lazy" />
                     ) : (
                         <div className="placeholder-image">Pack photo coming soon</div>
                     )}

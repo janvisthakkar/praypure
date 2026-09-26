@@ -51,13 +51,14 @@ const CollectionHub = ({ familyKey }) => {
     return (
         <div className="collection-hub product-category-page">
             <Helmet>
-                <title>{family.title} | Praypure</title>
+                <title>{family.seoTitle || family.title} | Praypure</title>
                 <meta name="description" content={family.description} />
+                <link rel="canonical" href={`https://www.praypure.com${family.href}`} />
             </Helmet>
             <section className="hub-header">
                 <div className="container">
                     <p className="hub-kicker">Praypure collection</p>
-                    <h1>{family.title}</h1>
+                    <h1>{family.seoTitle || family.title}</h1>
                     <p>{family.description}</p>
                 </div>
             </section>

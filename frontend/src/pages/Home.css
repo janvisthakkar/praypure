@@ -1,3 +1,27 @@
+.home-faq .faq-list {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(62, 39, 35, 0.12);
+    padding: 16px 0;
+    text-align: left;
+}
+
+.faq-item summary {
+    cursor: pointer;
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: var(--color-dark-brown);
+}
+
+.faq-item p {
+    margin: 10px 0 0;
+    line-height: 1.7;
+    color: var(--color-text);
+}
+
 .collection-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
