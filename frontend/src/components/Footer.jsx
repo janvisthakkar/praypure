@@ -28,10 +28,15 @@ const Footer = () => {
                     <div className="footer-section">
                         <h3>Products</h3>
                         <ul className="footer-links">
-                            <li><Link to="/incense-sticks">Incense Sticks</Link></li>
-                            <li><Link to="/dhoop-sticks">Dhoop Sticks</Link></li>
-                            <li><Link to="/dhoop-cones">Dhoop Cones</Link></li>
-                            <li><Link to="/havan-cups">Havan Cups</Link></li>
+                            <li><Link to="/incense-zipper-pouches">Zip Pouches</Link></li>
+                            <li><Link to="/incense-sticks-100g">Incense 100g</Link></li>
+                            <li><Link to="/incense-sticks-33">Incense 33</Link></li>
+                            <li><Link to="/incense-packs-10">Incense 10</Link></li>
+                            <li><Link to="/dhoop-sticks-100g">Dhoop 100g</Link></li>
+                            <li><Link to="/dhoop-sticks-10">Dhoop 10</Link></li>
+                            <li><Link to="/dhoop-packs-90">Dhoop 90g</Link></li>
+                            <li><Link to="/dhoop-cups">Dhoop Cups</Link></li>
+                            <li><Link to="/launching-soon">Coming Soon</Link></li>
                         </ul>
                     </div>
                     <div className="footer-section">

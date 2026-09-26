@@ -37,6 +37,8 @@ const ProductCard = ({ product }) => {
                         "@context": "https://schema.org/",
                         "@type": "Product",
                         "name": product.name,
+                        "sku": product.sku || undefined,
+                        "gtin13": product.gtin || undefined,
                         "image": product.images?.length > 0 ? product.images[0].url : product.image,
                         "description": product.description,
                         "brand": {
@@ -73,6 +75,11 @@ const ProductCard = ({ product }) => {
             </div>
             <div className="product-info">
                 <h3>{product.name}</h3>
+                {(product.netQuantity || product.fragranceLine) && (
+                    <p className="product-meta">
+                        {[product.netQuantity, product.fragranceLine].filter(Boolean).join(' · ')}
+                    </p>
+                )}
                 <p className="product-desc">{product.description}</p>
                 <div className="product-footer">
                     {/* Conditionally Render Price */}

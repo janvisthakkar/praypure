@@ -29,10 +29,15 @@ const Navbar = () => {
                     </Link>
                     <ul className={`nav-menu ${isMenuOpen ? 'mobile-active' : ''}`}>
                         <li><Link to="/" className={isActive('/') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Home</Link></li>
-                        <li><Link to="/incense-sticks" className={isActive('/incense-sticks') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Incense Sticks</Link></li>
-                        <li><Link to="/dhoop-sticks" className={isActive('/dhoop-sticks') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop Sticks</Link></li>
-                        <li><Link to="/dhoop-cones" className={isActive('/dhoop-cones') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop Cones</Link></li>
-                        <li><Link to="/havan-cups" className={isActive('/havan-cups') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Havan Cups</Link></li>
+                        <li><Link to="/incense-zipper-pouches" className={isActive('/incense-zipper-pouches') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Zip Pouches</Link></li>
+                        <li><Link to="/incense-sticks-100g" className={isActive('/incense-sticks-100g') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Incense 100g</Link></li>
+                        <li><Link to="/incense-sticks-33" className={isActive('/incense-sticks-33') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Incense 33</Link></li>
+                        <li><Link to="/incense-packs-10" className={isActive('/incense-packs-10') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Incense 10</Link></li>
+                        <li><Link to="/dhoop-sticks-100g" className={isActive('/dhoop-sticks-100g') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop 100g</Link></li>
+                        <li><Link to="/dhoop-sticks-10" className={isActive('/dhoop-sticks-10') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop 10</Link></li>
+                        <li><Link to="/dhoop-packs-90" className={isActive('/dhoop-packs-90') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop 90g</Link></li>
+                        <li><Link to="/dhoop-cups" className={isActive('/dhoop-cups') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Dhoop Cups</Link></li>
+                        <li><Link to="/launching-soon" className={isActive('/launching-soon') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Coming Soon</Link></li>
                         <li><Link to="/about" className={isActive('/about') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>About Us</Link></li>
                         <li><Link to="/impact" className={isActive('/impact') ? 'active' : ''} onClick={() => setIsMenuOpen(false)}>Our Impact</Link></li>
                     </ul>

@@ -56,7 +56,7 @@ const Home = () => {
                 // Fetch all data in parallel
                 const [instaRes, prodRes, sectRes] = await Promise.all([
                     axios.get(`${API_BASE}/api/content/instagram`).catch(() => ({ data: { success: false } })),
-                    axios.get(`${API_BASE}/api/products`).catch(() => ({ data: { success: false } })),
+                    axios.get(`${API_BASE}/api/products?limit=100`).catch(() => ({ data: { success: false } })),
                     axios.get(`${API_BASE}/api/content/sections`).catch(() => ({ data: { success: false } }))
                 ]);
 
