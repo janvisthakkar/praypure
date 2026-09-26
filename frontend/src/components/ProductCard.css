@@ -98,6 +98,10 @@
     letter-spacing: 0.04em;
 }
 
+.product-price {
+    letter-spacing: 0.01em;
+}
+
 .product-links {
     display: grid;
     grid-template-columns: 1fr 1fr;

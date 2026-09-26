@@ -8,8 +8,12 @@ const FALLBACK_SHOPS = [
     { platform: 'Flipkart', url: FLIPKART_SHOP },
 ];
 
+const displayName = (product) => {
+    if (product.fragrance) return product.fragrance;
+    return (product.name || '').replace(/\s*·\s*.+$/, '').trim();
+};
+
 const ProductCard = ({ product }) => {
-    const showPrice = true;
     const image = product.images?.find((img) => img.url)?.url || product.image;
     const shopLinks = (product.marketplaces || [])
         .filter((mp) => mp.showButton !== false && mp.url)
@@ -18,6 +22,7 @@ const ProductCard = ({ product }) => {
     const buttons = isSoon ? [] : (shopLinks.length ? shopLinks : FALLBACK_SHOPS);
     const price = Number(product.price) || 0;
     const mrp = Number(product.mrp) || price;
+    const title = displayName(product);
 
     return (
         <>
@@ -54,21 +59,20 @@ const ProductCard = ({ product }) => {
                     {product.isNew && <span className="badge new">New</span>}
                 </div>
                 <div className="product-info">
-                    <h3>{product.name}</h3>
-                    {(product.netQuantity || product.fragranceLine) && (
-                        <p className="product-meta">
-                            {[product.fragranceLine, product.netQuantity].filter(Boolean).join(' · ')}
-                        </p>
+                    <h3>{title}</h3>
+                    {product.netQuantity && (
+                        <p className="product-meta">{product.netQuantity}</p>
                     )}
-                    {showPrice && mrp > 0 && (
+                    {mrp > 0 && (
                         <div className="price-container">
-                            <span className="product-price">₹{price || mrp}</span>
-                            {mrp > price && price > 0 && (
-                                <span className="mrp-group">
+                            {price > 0 && price < mrp ? (
+                                <>
+                                    <span className="product-price">₹{price}</span>
                                     <span className="product-mrp">₹{mrp}</span>
-                                </span>
+                                </>
+                            ) : (
+                                <span className="product-price">MRP ₹{mrp}</span>
                             )}
-                            {(!price || price === mrp) && <span className="price-note">MRP</span>}
                         </div>
                     )}
                     <div className="product-links">
