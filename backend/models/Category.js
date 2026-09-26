@@ -35,6 +35,10 @@ const categorySchema = new mongoose.Schema({
         enum: ['Live', 'Coming Soon', 'Invisible'],
         default: 'Live'
     },
+    order: {
+        type: Number,
+        default: 0
+    },
     isActive: { // Deprecated: keeping for compatibility during migration
         type: Boolean,
         default: true
