@@ -72,6 +72,7 @@
 .testimonial-wrapper {
     position: relative;
     width: 100%;
+    overflow: hidden;
 }
 
 .custom-prev,
@@ -125,10 +126,22 @@
     background: var(--color-golden) !important;
 }
 
-@media (max-width: 480px) {
-
+@media (max-width: 768px) {
     .custom-prev,
     .custom-next {
         display: none;
+    }
+
+    .testimonial-card,
+    .testimonial-text {
+        text-align: center;
+    }
+
+    .testimonial-author {
+        justify-content: center;
+    }
+
+    .stars {
+        text-align: center;
     }
 }

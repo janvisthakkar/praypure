@@ -150,20 +150,21 @@
 
     .nav-menu {
         position: fixed;
-        top: 105px;
+        top: 87px;
         right: -100%;
-        width: 300px;
-        height: calc(100vh - 105px);
+        width: 100%;
+        height: calc(100dvh - 87px);
         background: var(--color-white);
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
         padding: var(--spacing-md) var(--spacing-sm);
-        box-shadow: -4px 0 12px rgba(62, 39, 35, 0.2);
+        box-shadow: none;
         transition: right 0.3s ease-in-out;
         justify-content: flex-start;
         z-index: 1001;
         overflow-y: auto;
         gap: 0;
+        text-align: center;
     }
 
     .nav-menu.mobile-active {
@@ -174,7 +175,7 @@
     .nav-menu a,
     .submenu-toggle {
         width: 100%;
-        text-align: left;
+        text-align: center;
     }
 
     .nav-menu a,
@@ -190,7 +191,8 @@
         display: none;
         box-shadow: none;
         min-width: 0;
-        padding: 0 0 8px 12px;
+        padding: 0 0 8px;
+        text-align: center;
     }
 
     .has-submenu.open .submenu {
@@ -199,7 +201,7 @@
 
     .nav-overlay {
         position: fixed;
-        top: 105px;
+        top: 87px;
         left: 0;
         width: 100%;
         height: calc(100vh - 105px);

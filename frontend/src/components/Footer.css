@@ -120,6 +120,18 @@
     }
     .footer-content {
         text-align: center;
+        grid-template-columns: 1fr;
+    }
+
+    .footer-logo {
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer-links,
+    .contact-info,
+    .footer-desc {
+        text-align: center;
     }
     .social-links {
         justify-content: center;

@@ -175,13 +175,17 @@
 
 @media (max-width: 480px) {
     .hero-banner {
-        height: 100vh;
-        /* Full viewport height on mobile */
-        max-height: 700px;
+        height: 520px;
+        max-height: none;
     }
 
     .banner-title {
         font-size: 2rem;
+    }
+
+    .hero-banner .swiper-button-next,
+    .hero-banner .swiper-button-prev {
+        display: none;
     }
 
     .banner-actions {
