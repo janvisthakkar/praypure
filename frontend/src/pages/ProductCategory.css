@@ -401,8 +401,18 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
     .products-grid {
         grid-template-columns: 1fr;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+
+    .category-header-section .page-title {
+        font-size: 28px;
+    }
+
+    .category-header-section .page-subtitle {
+        font-size: 16px;
     }
 }

@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 320px;
+    max-width: none;
 }
 
 .product-card:hover {
@@ -134,4 +134,16 @@
 
 .shop-btn:hover {
     transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+    .product-info {
+        text-align: center;
+        align-items: center;
+    }
+
+    .product-footer,
+    .price-container {
+        justify-content: center;
+    }
 }

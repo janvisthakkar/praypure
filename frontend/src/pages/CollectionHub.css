@@ -28,3 +28,17 @@
 .collection-hub .product-layout {
     padding-top: 8px;
 }
+
+@media (max-width: 768px) {
+    .hub-header {
+        padding: 40px 0 32px;
+    }
+
+    .hub-header h1 {
+        font-size: 32px;
+    }
+
+    .hub-header p {
+        font-size: 16px;
+    }
+}
